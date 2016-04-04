@@ -49,35 +49,21 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     //NonUiTaskFragment fragment;
-    AsyncInterface mListener;
     boolean mBound;
     String description;
-    private ListView mList;
-    private ArrayList<String> arrayList;
-    private MyCustomAdapter mAdapter;
-    private TCPClient mTcpClient;
-    public String Choice, Port;
-    private TextView mOutput, mAutofitOutput,ConnectionBox ,IpBox,PortBox,Descript;
+    public String Port;
+    private TextView PortBox,Descript;
     public SharedPreferences settings;
     private Button Accept,Decline,Connect, Disconnect;
-    private Boolean IntitalDescription,AnimationRunning , DialogOpen,AddDialogOpen,EditDialogOpen, Edited, Ready, notiReady,createNotiReady,NotiAcce,Ongoing,Vibrate,Sound,Animation,Flip,Start,End,Complete,Complete2,Running,Portrait,PrefAnimation,disctest, Meme, ChoiceReady;
-    private String LastChoice,Tag, IpAddr, EditingName, EditingAddress, EditingPort;
-    public NotificationManager mNotificationManager;
+    private Boolean IntitalDescription,AnimationRunning , DialogOpen,AddDialogOpen,EditDialogOpen, AddDialogInterrupted,EditDialogInterrupted, Edited, Portrait, Vibrate,Sound;
+    private String Tag, IpAddr, EditingName, EditingAddress, EditingPort;
     public NotificationCompat.Builder mBuilder;
     public int o, Scene;
     public int prev_state, EditingInt;
-    public int List_choice;
-    private ImageView myAnimation,myAnimationR,myAnimationS,myAnimationE,myAnimationE2,myAnimationE3;
-    private AnimationDrawable myAnimationDrawable,myAnimationDrawableR,myAnimationDrawableS,myAnimationDrawableE,myAnimationDrawableE2,myAnimationDrawableE3;
     public PendingIntent resultPendingIntent,resultPendingIntent2;
-    private Intent intent;
-    long startTime;
-    long elapsedTime = 0L;
     private connectService mService;
     private SharedPreferences.OnSharedPreferenceChangeListener prefListener;
-    public static final String PREFS_NAME = "mypreferences";
-    connectService mConnect;
-     DrawerLayout drawer;
+    DrawerLayout drawer;
     ActionBarDrawerToggle toggle;
     IpAddressDatabaseHelper db ;
     private String StateArray[] = {"Connected","Looking For Match","Game Found", "Accept Or Decline","Checking...","Looking For Server","Checking If In Game...","In Game","Declined","Failed To Ready Up","Returning To Search...","Disconnect"};
@@ -85,17 +71,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private LinearLayout AcceptDeclineLayout;
     private AlertDialog CreateDialog, AddDialog, EditDialog;
 
-    Handler asyncHandler = new Handler(){
-        public void handleMessage(Message msg){
-            super.handleMessage(msg);
-            //What did that async task say?
-            switch (msg.what) {
-                case 1:
-                    //foo();
-                    break;
-            }
-        }
-    };
     BroadcastReceiver call_method = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -119,10 +94,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //Boolean
         IntitalDescription=true;
         AnimationRunning=false;
+
+        AddDialogInterrupted = false;
+        EditDialogInterrupted = false;
+
         DialogOpen = false;
         AddDialogOpen = false;
         EditDialogOpen = false;
-        Edited = false;
+
 
 
         //Initial get Settings
@@ -196,7 +175,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Intent notificationIntent = new Intent("com.example.phnx.dmote.test_intent");
         Intent notification2Intent = new Intent("com.example.phnx.dmote.test2");
 
-            //Put Accept or Decline inside the intents, so when the Notification Action is pressed, it sill Sent Accept
+        //Put Accept or Decline inside the intents, so when the Notification Action is pressed, it will send Accept
         notificationIntent.putExtra("Test","Accept");
         notification2Intent.putExtra("Test","Decline");
 
@@ -220,37 +199,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
          //   Decline.setVisibility(savedInstanceState.getInt("buttonv"));
             prev_state = savedInstanceState.getInt("prev_state");
             IntitalDescription =savedInstanceState.getBoolean("InitialDescription");
-            //Disconnect.setVisibility(savedInstanceState.getInt("buttond"));
-           // createNotiReady=savedInstanceState.getBoolean("noti");
-           // LastChoice=savedInstanceState.getString("notitext");
-           // Running=savedInstanceState.getBoolean("Running");
-          //  Scene=savedInstanceState.getInt("Scene", Scene);
             Descript.setText(savedInstanceState.getString("Des"));
-            DialogOpen = savedInstanceState.getBoolean("DialogOpen");
-            AddDialogOpen = savedInstanceState.getBoolean("AddDialogOpen");
-            EditDialogOpen = savedInstanceState.getBoolean("EditDialogOpen");
-            EditingName = savedInstanceState.getString("EditingName");
-            EditingAddress = savedInstanceState.getString("EditingAddress");
-            EditingPort = savedInstanceState.getString("EditingPort");
-            Edited= savedInstanceState.getBoolean("Edited");
+
 
 
         }
         else {
             Descript.setText("Not Connected");
         }
-        if(DialogOpen){
-            createAlertDialogSQLite();
-        }
-        else if(AddDialogOpen){
-            createAddDialogSQLite(EditingInt);
-        }
-        else if(EditDialogOpen){
-            Log.e("WINDOWS" ,"Name: "+ EditingName +" Address:" + EditingAddress + " Port" +EditingPort );
-            String EditingIpAddress = EditingAddress+":"+EditingPort;
-            IpAddress IpInProgress = new IpAddress(EditingName,EditingIpAddress);
-            DialogEditSetupSQLite(IpInProgress,EditingInt );
-        }
+
 
 
         //Displaying IP
@@ -269,21 +226,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 startService(connectIntent);
                 bindService(connectIntent,mConnection,BIND_AUTO_CREATE);
-
-
                 }
-                /*
-                displayMemoryUsage("hi");
-                        Log.e("TCP Client", "connect:");
-                       // IpAddr = settings.getString("IPaddr", "IP Address not set ");
-                       // Port = settings.getString("Port", "Port not set ");
-
-                        fragment.beginTask(IpAddr, Port);
-                        */
             }
         );
-
-
 
 
         Disconnect.setOnClickListener(new View.OnClickListener() {
@@ -291,38 +236,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onClick(View view) {
                 //fragment.endTask();
             }
-
-
-
         });
-
-
 
         Accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                    //Choice = "Accept";
                 Intent AcceptIntent = new Intent(getBaseContext(),connectService.class);
                 AcceptIntent.setAction(Constants.ACTION.ACCEPT_ACTION);
                 startService(AcceptIntent);
-               //     fragment.sendMsg("Accept");
-
             }
-
-
-
         });
-
-
-
 
         Decline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                //    Choice = "Decline";
-                  //  fragment.sendMsg("Decline");
                 Intent DeclineIntent = new Intent(getBaseContext(),connectService.class);
                 DeclineIntent.setAction(Constants.ACTION.DECLINE_ACTION);
                 startService(DeclineIntent);
@@ -342,8 +271,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     };
 
-
-
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
@@ -352,35 +279,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        // Inflate the menu; this adds items to the action bar if it is present.
-
-        getMenuInflater().inflate(R.menu.menu_main, menu);//old
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-
-        return super.onOptionsItemSelected(item);
-    }
-    @Override
     public void onPause() {
         super.onPause();
 
     }
+
     @Override
     protected void onResume() {
         super.onResume();
-
-
     }
 
     @Override
@@ -393,8 +299,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         connectIntent.setAction(Constants.ACTION.STARTFOREGROUND_ACTION);
         bindService(connectIntent, mConnection,
                 Context.BIND_AUTO_CREATE);
-
-
     }
 
     @Override
@@ -406,8 +310,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             unbindService(mConnection);
             mBound = false;
         }
-
     }
+
     @Override
     protected  void onDestroy() {
         super.onDestroy();
@@ -416,6 +320,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             CreateDialog.dismiss();
         }
         if(AddDialog!=null){
+            AddDialogInterrupted = true;
             AddDialog.dismiss();
         }
         if(EditDialog!=null){
@@ -428,48 +333,68 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
            unregisterReceiver(call_method);
         unregisterReceiver(broadcastReceiver);
-
-
-
-        // }
+    }
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        Log.e("WINDOWS", "onRestoreInstanceState");
+        DialogOpen = savedInstanceState.getBoolean("DialogOpen");
+        AddDialogOpen = savedInstanceState.getBoolean("AddDialogOpen");
+        EditDialogOpen = savedInstanceState.getBoolean("EditDialogOpen");
+        DialogOpen = savedInstanceState.getBoolean("DialogOpen");
+        AddDialogOpen = savedInstanceState.getBoolean("AddDialogOpen");
+        EditDialogOpen = savedInstanceState.getBoolean("EditDialogOpen");
+        EditingName = savedInstanceState.getString("EditingName");
+        EditingAddress = savedInstanceState.getString("EditingAddress");
+        EditingPort = savedInstanceState.getString("EditingPort");
+         List<IpAddress> ipAddressList = db.getAllIpAddress();
+        if(DialogOpen){
+            createAlertDialogSQLite();
+        }
+        else if(AddDialogOpen){
+            AddDialogInterrupted= true;
+            createAddDialogSQLite(EditingInt);
+        }
+        else if(EditDialogOpen){
+            EditDialogInterrupted= true;
+            Log.e("WINDOWS" ,"Name: "+ EditingName +" Address:" + EditingAddress + " Port" +EditingPort );
+            String EditingIpAddress = EditingAddress+":"+EditingPort;
+            IpAddress IpInProgress = new IpAddress(EditingName,EditingIpAddress);
+            DialogEditSetupSQLite(ipAddressList.get(EditingInt),EditingInt );
+        }
 
     }
-
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+        Log.e("WINDOWS", "onSavedInstanceState");
         outState.putInt("buttonv", AcceptDeclineLayout.getVisibility());
         outState.putInt("buttonc", Connect.getVisibility());
         outState.putString("Des",Descript.getText().toString());
         outState.putInt("prev_state",prev_state);
         outState.putBoolean("InitialDescription",IntitalDescription);
+
         outState.putBoolean("DialogOpen",DialogOpen);
         outState.putBoolean("AddDialogOpen",AddDialogOpen);
         outState.putBoolean("EditDialogOpen",EditDialogOpen);
-        outState.putBoolean("Edited",Edited);
+//        outState.putBoolean("Edited",Edited);
 
-
-        if(AddDialogOpen || EditDialogOpen || Edited  ){
+        //outState.putBoolean("AddDialogInterrupted",AddDialogInterrupted);
             outState.putInt("EditingInt",EditingInt);
             outState.putString("EditingName",EditingName);
             outState.putString("EditingAddress",EditingAddress);
             outState.putString("EditingPort",EditingPort);
-        }
+
     }
-
-
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
     // Handle navigation view item clicks here.
     int id = item.getItemId();
     if(id == R.id.nav_ip_address){
-
         db.deleteAllIpAddress();
         }
-
-
         if(id == R.id.nav_port){
             if(mService!=null) {
 
@@ -479,19 +404,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
     drawer.closeDrawer(GravityCompat.START);
     return true;
-
-
 }
-    public void getSQLite(){
 
+    public void getSQLite(){
         List<IpAddress> listIPAddress = db.getAllIpAddress();
         for (int i = 0; i<listIPAddress.size(); i++){
             IpAddress ip = listIPAddress.get(0);
             String ip_name = ip.name;
             Log.e("DATABASE", ip_name);
         }
-
     }
+
     public void createAlertDialogSQLite(){
 
         //Intialize Preferences to dave in default if saved, or even delete.
@@ -510,7 +433,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         final List<String> ipListString = db.getAllIpAddressNames();
         final int nextAddition = ipAddressList.size() +1;
         //Dialogs need CharSequences, Converted fom List<String> from the database
-       CharSequence[] ipArray = ipListString.toArray(new CharSequence[ipListString.size()]);
+        CharSequence[] ipArray = ipListString.toArray(new CharSequence[ipListString.size()]);
         final int defaultIpIndex = preferences.getInt("default_ip_address_index", -1);
         Log.e("WINDOWS",Integer.toString(defaultIpIndex));
         builder.setSingleChoiceItems(ipArray,defaultIpIndex , new DialogInterface.OnClickListener(){
@@ -521,9 +444,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 lv.setTag(new Integer(which));
                 setDefaultClick(ipAddressList, which);
             }
-
-
         });
+
+
         //Add button
         builder.setPositiveButton(R.string.AlertPositiveButton, new DialogInterface.OnClickListener() {
             @Override
@@ -532,13 +455,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 AddDialogOpen = false;
                 createAddDialogSQLite(nextAddition);
                 //createAddDialog();
-
-
-
-
-
             }
         });
+
+        //Cancel Button
         builder.setNegativeButton(R.string.AlertNegativeButton, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int id) {
@@ -548,10 +468,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     setDefaultClick(ipAddressList,defaultIpIndex);
                 }
                 dialog.cancel();
-
-
             }
         });
+
+        //Edit Button , Assigns Title,  Empty because button OnClick id done in OnShow
         builder.setNeutralButton(R.string.AlertNeutralButton,null);
 
         CreateDialog = builder.create();
@@ -599,18 +519,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 DialogOpen= false;
             }
         });
-
-
-
-
-
-
-
         CreateDialog.show();
-
-       // IpAddress newIP = new IpAddress("Josiah's House", "192.168.2.72");
-    //    db.addIpAddressOnly(newIP);
-
     }
 
     public void setDefaultClick(List<IpAddress> ipAddresses , int index){
@@ -638,144 +547,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         editor.apply();
     }
 
-    public void createAlertDialog(){
-
-        final IpAddressPref Address = new IpAddressPref(this, new IpAddressPref.DefaultListener(){
-
-            @Override
-            public void onDefaultChange(String message){
-               Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
-                String Info[] = message.substring(2).split(":");
-                IpAddr = Info[0];
-                Port = Info[1];
-                PortBox.setText(message.substring(2));
-
-            }
-        });
-
-        final boolean edit_mode = false;
-        LayoutInflater inflater = getLayoutInflater();
-        final View dialogView = inflater.inflate(R.layout.activity_dialog_content, null);
-        final AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.DialogTheme));
-         builder.setTitle(R.string.AlertTitle);
-        for(int i =0 ;i<Address.getSize();i++){
-            Log.e("Dialog","IpArray: " +Integer.toString(i)+":   "+Address.get(i));
-
-        }
-
-        final int prev_default = Address.getDefaultIndex();
-        // int current_choice = prev_default;
-        builder.setSingleChoiceItems(Address.getDialogSequence(),Address.getDefaultIndex(), new DialogInterface.OnClickListener(){
-
-            public void onClick(DialogInterface dialog, int which){
-
-                Log.e("Dialog",Integer.toString(which));
-                ListView lv = ((AlertDialog)dialog).getListView();
-                lv.setTag(new Integer(which));
-                Address.setDefault(which);
-            }
-
-
-        });
-                builder.setPositiveButton(R.string.AlertPositiveButton, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int id) {
-                    createAddDialog(Address);
-                    //createAddDialog();
-
-
-
-
-
-            }
-        });
-                        builder.setNegativeButton(R.string.AlertNegativeButton, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int id) {
-                ListView lv = ((AlertDialog)dialog).getListView();
-                Integer selected = (Integer)lv.getTag();
-                if(selected != null) {
-                    Address.setDefault(prev_default);
-                }
-                dialog.cancel();
-
-
-            }
-        });
-        builder.setNeutralButton(R.string.AlertNeutralButton,null);
-        /*
-        builder.setNeutralButton(R.string.AlertNeutralButton, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int id) {
-                ListView lv = ((AlertDialog)dialog).getListView();
-                Integer selected = (Integer)lv.getTag();
-                if(selected != null) {
-                  //  DialogEditSetup(Address,selected);
-                    // do something interesting
-                }
-                builder.setTitle(R.string.AlertEditTitle);
-
-
-
-            }
-        });
-         */
-
-        final AlertDialog dialog = builder.create();
-        dialog.setOnShowListener( new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(DialogInterface arg0) {
-
-                dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.white));
-                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.white));
-
-                Button b = dialog.getButton(AlertDialog.BUTTON_NEUTRAL);
-                b.setTextColor(getResources().getColor(R.color.white));
-                if (Address.getCount() == 0) {
-                    b.setVisibility(View.GONE);
-                }
-                b.setOnClickListener(new View.OnClickListener() {
-
-                    @Override
-                    public void onClick(View view) {
-                        // TODO Do something
-                        AddDialogOpen= false;
-                        ListView lv = ((AlertDialog) dialog).getListView();
-                        Integer selected = (Integer) lv.getTag();
-                        Log.e("Dialog","prev:  "+Integer.toString(prev_default));
-                        if (selected != null ) {
-                            dialog.cancel();
-                            DialogEditSetup(Address, selected);
-                            //Dismiss once everything is OK.
-                            // dialog.dismiss();
-                        }
-                        else if(prev_default != -1){
-                            dialog.cancel();
-                            DialogEditSetup(Address, prev_default);
-                        }
-
-                    }
-
-                });
-            }});
-
-
-
-
-
-
-
-        dialog.show();
-    }
 
     public void createAddDialogSQLite(final int nextSize){
         Log.e("WINDOWS","AddDialogOpen: "+ AddDialogOpen + " Edited: "+ Edited);
-        if(!AddDialogOpen && !Edited) {
+        if(!AddDialogInterrupted) {
             EditingPort= null;
             EditingAddress = null;
             EditingName = null;
         }
         AddDialogOpen = true;
+        AddDialogInterrupted = false;
         Edited= false;
         EditingInt = nextSize;
 
@@ -826,7 +607,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                               @Override
                                               public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                                                  Edited= true;
                                                   EditingName= s.toString();
                                                   Log.e("WINDOWS","onTextChange: "+ s.toString() + " Edited: "+ Edited);
                                               }
@@ -906,7 +686,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onDismiss(DialogInterface dialog) {
                 Log.e("WINDOWS" ,"AddDialog: OnDismiss: AddDialogOpen: " + AddDialogOpen);
-               // AddDialogOpen= false;
+                AddDialogOpen= false;
             }
         });
         AddDialog.show();
@@ -915,13 +695,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void DialogEditSetupSQLite(final IpAddress ipAddress, final int selected){
-        if(!EditDialogOpen  || !Edited) {
+        if(!EditDialogInterrupted) {
             EditingName = ipAddress.name;
             String[] EditingBuffer = ipAddress.address.split(":");
             EditingAddress = EditingBuffer[0];
             EditingPort = EditingBuffer[1];
         }
        Edited= false;
+        EditDialogInterrupted = false;
         EditingInt = selected;
         EditDialogOpen = true;
 
@@ -1080,7 +861,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onDismiss(DialogInterface dialog) {
 
-                //EditDialogOpen= false;
+                EditDialogOpen= false;
             }
         });
         EditDialog.show();
@@ -1090,138 +871,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-    public void createAddDialog(final IpAddressPref Address){
-        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.DialogTheme));
-        builder.setTitle("Add IP Address");
-        LayoutInflater inflater = getLayoutInflater();
-        final View dialogView = inflater.inflate(R.layout.activity_dialog_content, null);
-        builder.setView(dialogView).setNegativeButton(R.string.AlertNegativeButton, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.cancel();
-                createAlertDialog();
-                // dialog.cancel();
-            }
-        });
-        builder.setPositiveButton(R.string.AlertPositiveButton,new DialogInterface.OnClickListener(){
-            @Override
-            public void onClick(DialogInterface dialog, int id){
-
-            }
-        });
-        final AlertDialog dialog = builder.create();
-        dialog.setOnShowListener( new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(DialogInterface arg0) {
-                dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.white));
-                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(getResources().getColor(R.color.white));
-                Button add = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
-                add.setOnClickListener(new View.OnClickListener() {
-
-                    @Override
-                    public void onClick(View view) {
-                        // TODO Do something
-                        FormEditText AddIp = (FormEditText) dialogView.findViewById(R.id.addIpEdit);
-                        FormEditText AddPort = (FormEditText) dialogView.findViewById(R.id.addPortEdit);
-                        if (AddIp.testValidity() && AddPort.testValidity() ) {
-
-                            String buffer1 = AddIp.getText().toString();
-                            String buffer2 = AddPort.getText().toString();
-                            Address.add(buffer1, buffer2);
-                            dialog.cancel();
-                            createAlertDialog();
-
-                        }
-
-                    }
-
-                });
-            }
-        });
 
 
-        dialog.show();
-
-
-    }
-
-
-
-
-    public void DialogEditSetup(final IpAddressPref Address, final int index){
-        Log.e("Dialog","EditSetup: "+Integer.toString(index));
-        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.DialogTheme));
-        builder.setTitle("Edit IP Address");
-        LayoutInflater inflater = getLayoutInflater();
-        final View dialogView = inflater.inflate(R.layout.activity_dialog_content, null);
-        builder.setView(dialogView);
-        builder.setPositiveButton(R.string.AlertEditPositiveButton, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int id) {
-
-
-            }
-        });
-        builder.setNegativeButton(R.string.AlertEditNegativeButton, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int id) {
-                Address.remove(index);
-                dialog.cancel();
-                createAlertDialog();
-
-            }
-        });
-        builder.setNeutralButton(R.string.AlertNegativeButton, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int id) {
-
-                dialog.cancel();
-                createAlertDialog();
-            }
-
-            });
-        final AlertDialog dialog = builder.create();
-        dialog.setOnShowListener( new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(DialogInterface arg0) {
-                FormEditText EditIp = (FormEditText) dialogView.findViewById(R.id.addIpEdit);
-                FormEditText EditPort = (FormEditText) dialogView.findViewById(R.id.addPortEdit);
-                    EditIp.setText(Address.getIp(index));
-                    EditPort.setText(Address.getPort(index));
-
-                dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(getResources().getColor(R.color.white));
-
-                Button ok = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
-                       ok.setTextColor(getResources().getColor(R.color.white));
-                ok.setOnClickListener(new View.OnClickListener() {
-
-                    @Override
-                    public void onClick(View view) {
-                        // TODO Do something
-                        FormEditText EditIp = (FormEditText) dialogView.findViewById(R.id.addIpEdit);
-                        FormEditText EditPort = (FormEditText) dialogView.findViewById(R.id.addPortEdit);
-                        if (EditIp.testValidity() && EditPort.testValidity() ) {
-
-                            String buffer1 = EditIp.getText().toString();
-                            String buffer2 = EditPort.getText().toString();
-                            Address.save(buffer1+":"+buffer2,index);
-                            Address.setDefault(index);
-                            dialog.cancel();
-                            createAlertDialog();
-
-                        }
-
-                    }
-
-                });
-                dialog.getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(getResources().getColor(R.color.white));
-
-            }
-        });
-        dialog.show();
-
-
-    }
 
     private ServiceConnection mConnection = new ServiceConnection() {
 

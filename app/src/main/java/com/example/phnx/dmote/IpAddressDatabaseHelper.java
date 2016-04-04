@@ -164,7 +164,7 @@ public class IpAddressDatabaseHelper extends SQLiteOpenHelper {
                 new String[] { String.valueOf(ipAddress.name)});
     }
     public List<IpAddress> getAllIpAddress() {
-        List<IpAddress> ipAddresses = new ArrayList<IpAddress>();
+        List<IpAddress> ipAddresses = new ArrayList<>();
 
         String selectQuery = "SELECT * FROM " + Table_IP;
 
@@ -195,7 +195,7 @@ public class IpAddressDatabaseHelper extends SQLiteOpenHelper {
         return ipAddresses;
     }
     public List<String> getAllIpAddressNames() {
-        List<String> ipAddressesNames = new ArrayList<String>();
+        List<String> ipAddressesNames = new ArrayList<>();
 
         String selectQuery = "SELECT * FROM " + Table_IP;
 
@@ -242,7 +242,7 @@ public class IpAddressDatabaseHelper extends SQLiteOpenHelper {
             db.delete(Table_IP, null, null);
             db.setTransactionSuccessful();
         } catch (Exception e) {
-            Log.d("DATABASR", "Error while trying to delete all posts and users");
+            Log.d("DATABASE", "Error while trying to delete all posts and users");
         } finally {
             db.endTransaction();
         }
