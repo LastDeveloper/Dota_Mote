@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:whatever="http://schemas.android.com/apk/res-auto"
+
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="450dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:weightSum="9"
+
+    >
+    <com.andreabaccega.widget.FormEditText
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:textColor="@android:color/white"
+        android:id="@+id/addIpName"
+        android:layout_weight="3"
+        android:hint="@string/AlertAddNameHint"
+        android:theme="@style/DialogTheme.EditText2"
+        whatever:testType="nocheck"
+        whatever:testErrorString="@string/AlertIpAddressTestError"
+        android:textColorHint="@color/ToolbarTitleColor"
+        android:layout_marginTop="16dp"
+       />
+    <com.andreabaccega.widget.FormEditText
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:textColor="@android:color/white"
+        android:id="@+id/addIpEdit"
+        android:inputType="number|numberDecimal"
+        android:digits="0123456789."
+        android:layout_weight="3"
+        android:hint="@string/AlertAddIpAddressHint"
+        android:theme="@style/DialogTheme.EditText2"
+        whatever:testType="ipAddress"
+        whatever:testErrorString="@string/AlertIpAddressTestError"
+        android:textColorHint="@color/ToolbarTitleColor"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp" />
+    <com.andreabaccega.widget.FormEditText
+        android:layout_width="match_parent"
+        android:layout_height="00dp"
+        android:id="@+id/addPortEdit"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_weight="3"
+        android:inputType="number"
+        whatever:maxNumber="65535"
+        whatever:testType="numeric"
+        android:maxLength="5"
+        android:theme="@style/DialogTheme.EditText2"
+        android:textColor="@android:color/white"
+        android:hint="@string/AlertAddIpPortHint"
+        whatever:testErrorString="@string/AlertPortTestError"
+        android:textColorHint="@color/ToolbarTitleColor"
+        android:paddingTop="16dp"
+        android:layout_below="@+id/addIpEdit" />
+</LinearLayout>

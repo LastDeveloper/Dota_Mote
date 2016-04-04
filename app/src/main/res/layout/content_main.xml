@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:showIn="@layout/activity_main"
+    android:id="@+id/RootView"
+    android:background="#000000">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="100"
+        android:visibility="visible"
+        android:id="@+id/RootLinear">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="30"
+            android:id="@+id/MainTopSpacing">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="40"
+            android:weightSum="100"
+            android:id="@+id/MainMiddleFrame">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="56"
+                android:weightSum="100"
+                android:id="@+id/Box">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="33"
+                    android:id="@+id/MainInfoFrame">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:weightSum="100"
+                        android:background="#1D1E20"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="33"
+                        android:id="@+id/Boxtop">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="30"
+                            android:id="@+id/IpInfoContainer">
+
+                            <me.grantland.widget.AutofitTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical|center_horizontal"
+
+                            android:text="@string/ConnectionPort"
+                            android:id="@+id/Porttext"
+                                android:textColor="@color/PortBox"
+                                android:layout_weight="30"
+                                android:elegantTextHeight="false"
+                                android:textSize="16sp"
+                                autofit:minTextSize="8sp"
+                                android:singleLine="true"
+                                android:layout_centerInParent="true" />
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="70"
+                            android:id="@+id/StatusInfoContainer">
+
+                            <Button
+                                style="?android:attr/buttonStyleSmall"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:text="New Button"
+                                android:id="@+id/button6"
+                                android:layout_weight="20"
+                                android:visibility="invisible" />
+
+                            <RelativeLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="60"
+                                android:id="@+id/middle">
+
+                                <me.grantland.widget.AutofitTextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:id="@+id/InfoText"
+                                    android:textColor="#FFFFFF"
+                                    android:layout_alignParentEnd="false"
+                                    android:gravity="top|center_vertical|center_horizontal"
+                                    android:textSize="30sp"
+                                    autofit:minTextSize="8sp"
+                                    android:singleLine="true"
+                                    android:visibility="visible"
+                                    android:layout_alignParentStart="false" />
+
+                                <ListView android:id="@+id/list"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:transcriptMode="alwaysScroll"
+                                    android:cacheColorHint="#00000000"
+                                    android:listSelector="@android:color/transparent"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:textAlignment="center"
+                                    android:background="#1D1E20"
+                                    android:layout_centerInParent="true"
+                                    android:paddingBottom="0dp"
+                                    android:layout_weight="20"
+                                    android:drawSelectorOnTop="true"
+                                    android:visibility="invisible" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:text="New Text HELP"
+                                    android:id="@+id/textViewFit"
+                                    android:textSize="100sp"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:textColor="#ffffff"
+                                    android:visibility="invisible" />
+                            </RelativeLayout>
+
+                            <Button
+                                style="?android:attr/buttonStyleSmall"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:text="New Button"
+                                android:id="@+id/button2"
+                                android:layout_weight="20"
+                                android:visibility="invisible" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:background="@color/MainboxColor"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:weightSum="100"
+                    android:layout_weight="67"
+                    android:id="@+id/MainButtonFrame">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:id="@+id/ButtonTopSpacing"
+                        android:layout_weight="30" />
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="40"
+                        android:id="@+id/ButtonMiddleFrame">
+
+                        <CheckBox
+                            android:layout_height="wrap_content"
+                            android:layout_width="0dp"
+                            android:layout_weight=".05"
+                            android:text="New CheckBox"
+                            android:visibility="invisible"
+                            android:id="@+id/InnerButtonLeftSpacing"
+                            android:layout_gravity="center" />
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight=".55"
+                            android:id="@+id/ButtonContainer">
+
+                            <Button
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="@string/Connect"
+                                style="?android:attr/borderlessButtonStyle"
+                                android:textColor="#FFFFFF"
+                                android:textSize="20sp"
+                                android:id="@+id/Connect"
+                                android:background="@drawable/connectbackbevel2"
+                                android:layout_gravity="center"
+                                android:allowUndo="true"
+                                android:visibility="visible" />
+
+                            <Button
+                                style="?android:attr/borderlessButtonStyle"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="@string/DisconnectB"
+                                android:textColor="#FFFFFF"
+                                android:textSize="20sp"
+                                android:id="@+id/Disconnect"
+                                android:background="@drawable/disconnectbackbevel2"
+                                android:layout_gravity="center"
+                                android:visibility="invisible" />
+
+                            <LinearLayout
+                                android:orientation="horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:id="@+id/AcceptDeclineContainer"
+                                android:visibility="invisible">
+
+                                <Button
+
+                                    android:layout_width="0dp"
+                                    android:layout_weight=".4875"
+                                    android:layout_height="match_parent"
+                                    android:text="Accept"
+                                    android:textSize="20sp"
+                                    style="?android:attr/borderlessButtonStyle"
+                                    android:background="@drawable/acceptbackbevel2"
+                                    android:id="@+id/Accept"
+                                    android:textColor="#FFFFFF"
+                                    android:visibility="visible"
+                                    android:layout_gravity="center"
+                                    android:layout_alignParentLeft="false"
+                                    android:typeface="normal" />
+
+                                <CheckBox
+                                    android:layout_height="wrap_content"
+                                    android:layout_width="0dp"
+                                    android:layout_weight=".025"
+                                    android:text="New CheckBox"
+                                    android:visibility="invisible"
+                                    android:id="@+id/ContainerSpacing" />
+
+                                <Button
+                                    android:layout_width="0dip"
+                                    android:textSize="20sp"
+                                    android:layout_weight=".4875"
+                                    android:layout_height="match_parent"
+                                    android:text="Decline"
+                                    android:id="@+id/Decline"
+                                    style="?android:attr/borderlessButtonStyle"
+                                    android:textColor="#FFFFFF"
+                                    android:background="@drawable/declinebackbevel2"
+                                    android:visibility="visible"
+                                    android:layout_gravity="center" />
+                            </LinearLayout>
+                        </RelativeLayout>
+
+                        <CheckBox
+                            android:layout_height="wrap_content"
+                            android:layout_width="0dp"
+                            android:layout_weight=".05"
+                            android:visibility="invisible"
+                            android:text="New CheckBox"
+                            android:id="@+id/InnerButtonRightSpacing"
+                            android:layout_gravity="left|bottom" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:id="@+id/ButtonBottomSpacing"
+                        android:layout_weight="30" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:id="@+id/MainBottomSpacing"
+            android:layout_weight="30" />
+
+    </LinearLayout>
+
+</RelativeLayout>

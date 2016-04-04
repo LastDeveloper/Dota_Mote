@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="Settings">
+    <EditTextPreference android:title="IP Address"
+        android:key="IPaddr"
+        android:defaultValue="192.168.2.72"
+        android:summary="Please enter your IP address">
+    </EditTextPreference>
+    <EditTextPreference android:title="Enter Port Number"
+        android:key="Port"
+        android:defaultValue="12345"
+        android:summary="Please enter the port of the IP address">
+
+    </EditTextPreference>
+
+    <CheckBoxPreference
+        android:title="Vibrate"
+        android:key="Vibrate"
+        android:defaultValue="true"
+        android:summaryOn="Vibrate is On"
+        android:summaryOff="Vibrate is Off">
+    </CheckBoxPreference>
+    <CheckBoxPreference
+        android:title="Sound Alert"
+        android:key="Sound Alert"
+        android:defaultValue="true"
+        android:summaryOn="Sound Alert is On"
+        android:summaryOff="Sound Alert is Off">
+    </CheckBoxPreference>
+
+</PreferenceScreen>

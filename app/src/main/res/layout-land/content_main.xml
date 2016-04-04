@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:autofit="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.phnx.dmote.MainActivity"
+    android:background="@android:color/black"
+    android:id="@+id/RootView"
+    tools:showIn="@layout/activity_main">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="100"
+        android:id="@+id/RootLinear">
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:id="@+id/MainTopSpacing"
+            android:layout_weight="15" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="70"
+            android:weightSum="100"
+            android:id="@+id/MainMiddleFrame">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/MainInnerLeftSpacing"
+                android:layout_weight="22" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="56"
+                android:weightSum="100"
+                android:id="@+id/Box">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:weightSum="100"
+                    android:background="#1D1E20"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="33"
+                    android:id="@+id/MainInfoFrame">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:weightSum="100"
+                        android:layout_weight="30"
+                        android:id="@+id/IpInfoContainer">
+
+                        <Button
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="New Button"
+                            android:id="@+id/button7"
+                            android:layout_weight="30"
+                            android:visibility="invisible" />
+
+                        <me.grantland.widget.AutofitTextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                            android:textColor="@color/PortBox"
+                            android:gravity="center_vertical|center_horizontal"
+
+                        android:text="@string/ConnectionPort"
+                        android:id="@+id/Porttext"
+                            android:elegantTextHeight="false"
+                            android:textSize="16sp"
+                            android:maxLines="2"
+                            autofit:minTextSize="8sp"
+                            android:singleLine="true"
+                            android:layout_weight="40" />
+
+                        <Button
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="New Button"
+                            android:id="@+id/button8"
+                            android:layout_weight="30"
+                            android:visibility="invisible" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:weightSum="100"
+                        android:layout_weight="70"
+                        android:id="@+id/StatusInfoContainer">
+
+                        <ListView android:id="@+id/list"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:transcriptMode="alwaysScroll"
+                            android:cacheColorHint="#00000000"
+                            android:listSelector="@android:color/transparent"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:textAlignment="center"
+                            android:background="#1D1E20"
+                            android:layout_centerInParent="true"
+                            android:paddingBottom="0dp"
+                            android:layout_weight="23"
+                            android:paddingTop="25dp"
+                            android:visibility="invisible" />
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="54"
+                            android:weightSum="100">
+
+                            <me.grantland.widget.AutofitTextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:id="@+id/InfoText"
+                                android:textColor="#FFFFFF"
+                                android:layout_alignParentEnd="false"
+                                android:gravity="top|center_vertical|center_horizontal"
+                                android:textSize="30sp"
+                                autofit:minTextSize="4sp"
+                                android:maxLines="2"
+                                android:singleLine="true"
+                                android:layout_weight="0" />
+                        </RelativeLayout>
+
+                        <Button
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:text="New Button"
+                            android:id="@+id/button5"
+                            android:layout_weight="23"
+                            android:visibility="invisible" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:background="#303133"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:weightSum="100"
+                    android:layout_weight="67"
+                    android:id="@+id/MainButtonFrame">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:id="@+id/imageView11"
+                        android:layout_weight="30" />
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="40"
+                        android:id="@+id/ButtonMiddleFrame">
+
+                        <CheckBox
+                            android:layout_height="wrap_content"
+                            android:layout_width="0dp"
+                            android:layout_weight=".05"
+                            android:text="New CheckBox"
+                            android:visibility="invisible"
+                            android:id="@+id/InnerButtonLeftSpacing"
+                            android:layout_gravity="center" />
+
+                        <RelativeLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight=".55"
+                            android:id="@+id/ButtonContainer">
+
+                            <Button
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="Connect"
+                                style="?android:attr/borderlessButtonStyle"
+                                android:textColor="#FFFFFF"
+                                android:textSize="20sp"
+                                android:id="@+id/Connect"
+                                android:background="@drawable/connectbackbevel2"
+                                android:layout_gravity="center"
+                                android:allowUndo="true"
+                                android:visibility="visible" />
+
+                            <Button
+                                style="?android:attr/borderlessButtonStyle"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="@string/DisconnectB"
+                                android:textColor="#FFFFFF"
+                                android:textSize="20sp"
+                                android:id="@+id/Disconnect"
+                                android:background="@drawable/disconnectbackbevel2"
+                                android:layout_gravity="center"
+                                android:visibility="invisible" />
+
+                            <LinearLayout
+                                android:orientation="horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:visibility="invisible"
+                                android:id="@+id/AcceptDeclineContainer">
+
+                                <Button
+
+                                    android:layout_width="0dp"
+                                    android:layout_weight=".4875"
+                                    android:layout_height="match_parent"
+                                    android:text="Accept"
+                                    android:textSize="20sp"
+                                    style="?android:attr/borderlessButtonStyle"
+                                    android:background="@drawable/acceptbackbevel2"
+                                    android:id="@+id/Accept"
+                                    android:textColor="#FFFFFF"
+                                    android:visibility="visible"
+                                    android:layout_gravity="center"
+                                    android:layout_alignParentLeft="false"
+                                    android:typeface="normal" />
+
+                                <CheckBox
+                                    android:layout_height="wrap_content"
+                                    android:layout_width="0dp"
+                                    android:layout_weight=".025"
+                                    android:text="New CheckBox"
+                                    android:id="@+id/checkBox7"
+                                    android:visibility="invisible"/>
+
+                                <Button
+                                    android:layout_width="0dip"
+                                    android:textSize="20sp"
+                                    android:layout_weight=".4875"
+                                    android:layout_height="match_parent"
+                                    android:text="Decline"
+                                    android:id="@+id/Decline"
+                                    style="?android:attr/borderlessButtonStyle"
+                                    android:textColor="#FFFFFF"
+                                    android:background="@drawable/declinebackbevel2"
+                                    android:visibility="visible"
+                                    android:layout_gravity="center" />
+                            </LinearLayout>
+                        </RelativeLayout>
+
+                        <CheckBox
+                            android:layout_height="wrap_content"
+                            android:layout_width="0dp"
+                            android:layout_weight=".05"
+                            android:visibility="invisible"
+                            android:text="New CheckBox"
+                            android:id="@+id/InnerButtonRightSpacing"
+                            android:layout_gravity="left|bottom" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:id="@+id/imageView12"
+                        android:layout_weight="30" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/MainInnerRightSpacing"
+                android:layout_weight="22" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:id="@+id/MainBottomSpacing"
+            android:layout_weight="15" />
+
+    </LinearLayout>
+
+</RelativeLayout>
