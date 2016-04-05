@@ -45,3 +45,11 @@ saved in the SQLite database and sets the newly added IP address to default.
 ![Example Image](/website/static/edit.gif?raw=true)  _________________________   ![Example Image](/website/static/delete.gif?raw=true)
 
 The Edit allows for changed to be made to the slected IP address records. Also in the Option for Deleted is located here. 
+
+
+## Notifications
+
+![Example Image](/website/static/notificatition.gif?raw=true)
+
+The communication between the application and the Desktop client is handled by a Service. The Service is initialized as a Foreground Service allowing it to persist in the case of low system memory or if the user leaves the application while still the search is still running. The service uses an Asynctask to send and receive the data from the Desktop Client. Once the service is running, the application can rebind itself to the service and continue receiving information as if nothing happened. The application, Service, and Asynctask communicate by an series of Interfaces, which are connected when the Service is created , and when the appication binds itself to the service.
+
