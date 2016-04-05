@@ -43,4 +43,5 @@ saved in the SQLite database and sets the newly added IP address to default.
 
 ### Edit Options with Delete
 ![Example Image](/website/static/edit.gif?raw=true)                  ![Example Image](/website/static/delete.gif?raw=true)
+
 The Edit allows for changed to be made to the slected IP address records. Also in the Option for Deleted is located here. 
