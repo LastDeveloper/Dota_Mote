@@ -68,13 +68,13 @@ changes and other user inputs.
 ##3rd Party Libraries Used
 
 
-#AutoFitTextView
+###AutoFitTextView
 
   https://github.com/grantland/android-autofittextview
 
   A TextView that automatically resizes text to fit perfectly within its bounds.
   
-#Android Form EditText
+###Android Form EditText
 
   https://github.com/vekexasia/android-edittext-validator
 
