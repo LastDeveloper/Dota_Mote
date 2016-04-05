@@ -55,7 +55,7 @@ The Edit allows for changed to be made to the selected IP address records from t
 
 The communication between the application and the Desktop client is handled by a Service. The Service is initialized as a Foreground Service, allowing it to persist in the case of low system memory or if the user leaves the application. The Service uses an Asynctask (Background Thread) to send and receive the data from the Desktop Client. Once the service is running, the application can rebind itself to the service and continue receiving information. The application, Service, and Asynctask communicate by an series of Interfaces, which are connected when the Service is created, and when the application  binds itself to the service.
 
-### Important Information
+# Important Information
 
 This project allowed me to gain knowledge and experience of higher level Object Oriented Programming. I plan to use these skills in my other projects and to allow me to adapt to other programming languages and development concepts. 
 
