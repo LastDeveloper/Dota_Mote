@@ -59,7 +59,7 @@ The communication between the application and the Desktop client is handled by a
 
 This project allowed me to gain knowledge and experience of higher level Object Oriented Programming. I plan to use these skills in my other projects and to allow me to adapt to other programming languages and development concepts. 
 
-PS. To show the my experience of the Android Lifecycle, All of the Dialogs and Game information are full adaptable on orientation 
+PS. To show my experience of the Android Lifecycle, All of the Dialogs and Game information are full adaptable on orientation 
 changes and other user inputs. 
 
 
