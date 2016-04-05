@@ -18,7 +18,8 @@ Dotamote receives the different states of matchingmaking process from the Deskto
   * Looking for Server
   * Checking If In Game
   * In Game
-  and also checks for any restarts in the search or matchmaking error.
+  
+  The application also checks for any restarts in the search or for matchmaking error.
 
   * Decline 
   * Failed To Ready Up
