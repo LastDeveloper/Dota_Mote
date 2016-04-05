@@ -1,8 +1,9 @@
 # DotaMote
 
-A mobile application that communicates with a desktop client to allow the user to accept or decline matches.
+A mobile application that communicates with a desktop client to allow the user to accept or decline matches. 
 SQLite database to hold different IP address information. Foreground Service with Notifications to keep 
-connection. User Interface integration with SQLite, and which reacts to desktop client. 
+connection. User Interface integration with SQLite, and which reacts to desktop client. Also a sound alert and vibration are 
+used to alert the user.
 
 ## States 
 
