@@ -27,6 +27,7 @@ public class connectService extends Service  {
     //IBinder mBinder;
     connectServiceAsync mAsyncTask;
     Service CS=this;
+
     DmoteNotification Please = new DmoteNotification(this);
     MainListener mMainListener;
 

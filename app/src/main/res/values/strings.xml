@@ -9,7 +9,8 @@
     <string name="Disconnect">Not Connected</string>
     <string name="Connection">Connected</string>
     <string name="Ip_title">IP Address</string>
-    <string name="Port_title">Port Number</string>
+    <string name="Port_title">Enter IP Address</string>
+
     <string name="AlertTitle">IP Address</string>
     <string name="AlertAddTitle">Add IP Address</string>
     <string name="AlertPositiveButton">Add</string>
@@ -21,6 +22,9 @@
     <string name="AlertEditNegativeButton">Delete</string>
     <string name="AlertIpAddressTestError">Invalid IP Address</string>
     <string name="AlertPortTestError">Invalid Port</string>
+
+    <string name="NavSound">Sound Alert</string>
+    <string name="NavVibrate">Vibrate </string>
 
     <!-- Strings Related to hints  -->
     <string name="AlertAddNameHint">Ex. My House</string>

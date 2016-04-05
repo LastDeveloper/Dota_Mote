@@ -1,6 +1,5 @@
 package com.example.phnx.dmote;
 
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -11,14 +10,9 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.graphics.drawable.AnimationDrawable;
-import android.location.Address;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.IBinder;
-import android.os.Message;
 import android.preference.PreferenceManager;
-import android.support.design.widget.NavigationView;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -26,20 +20,19 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ContextThemeWrapper;
+import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.andreabaccega.widget.FormEditText;
 
@@ -47,13 +40,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity {
+    // implements NavigationView.OnNavigationItemSelectedListener
     //NonUiTaskFragment fragment;
     boolean mBound;
     String description;
     public String Port;
     private TextView PortBox,Descript;
     public SharedPreferences settings;
+    public SharedPreferences.Editor editor;
     private Button Accept,Decline,Connect, Disconnect;
     private Boolean IntitalDescription,AnimationRunning , DialogOpen,AddDialogOpen,EditDialogOpen, AddDialogInterrupted,EditDialogInterrupted, Edited, Portrait, Vibrate,Sound;
     private String Tag, IpAddr, EditingName, EditingAddress, EditingPort;
@@ -107,6 +102,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //Initial get Settings
 
         settings = PreferenceManager.getDefaultSharedPreferences(this);
+        editor = settings.edit();
 
         String Info[] =  settings.getString("default_ip_address", "empty").split(":");
         if(Info.length==1){
@@ -155,8 +151,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         //View Intitalization
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+       // NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+       // navigationView.setNavigationItemSelectedListener(this);
         Accept = (Button) findViewById(R.id.Accept);
         Decline = (Button) findViewById(R.id.Decline);
         Disconnect = (Button) findViewById(R.id.Disconnect);
@@ -164,7 +160,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Connect = (Button) findViewById(R.id.Connect);
         PortBox = (TextView) findViewById(R.id.Porttext);
         AcceptDeclineLayout = (LinearLayout)findViewById(R.id.AcceptDeclineContainer) ;
-
+        TextView EnterIpAddress = (TextView) findViewById(R.id.nav_ip_text) ;
+        SwitchCompat SoundSwitch = (SwitchCompat) findViewById(R.id.sound_switch);
+        SwitchCompat VibrateSwitch = (SwitchCompat) findViewById(R.id.vibrate_swtich);
         //Notification Intents
 
             //Setup receivers
@@ -213,7 +211,49 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //Displaying IP
         String Txt=IpAddr+":"+Port;
         PortBox.setText(Txt);
+        //
+        SoundSwitch.setChecked(settings.getBoolean("Sound Alert", false));
+        VibrateSwitch.setChecked(settings.getBoolean("Vibrate", false));
 
+        EnterIpAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View view) {
+            createAlertDialogSQLite();
+                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                drawer.closeDrawer(GravityCompat.START);
+            }
+
+
+
+        });
+        SoundSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View view) {
+
+
+            }
+
+
+
+        });
+        VibrateSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                //commit prefs on change
+                editor.putBoolean("Vibrate", isChecked);
+                editor.apply();
+
+            }
+        });
+        SoundSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                //commit prefs on change
+                editor.putBoolean("Sound Alert", isChecked);
+                editor.apply();
+
+            }
+        });
 
         Connect.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -387,7 +427,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             outState.putString("EditingPort",EditingPort);
 
     }
-
+        /*
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
     // Handle navigation view item clicks here.
@@ -405,6 +445,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     drawer.closeDrawer(GravityCompat.START);
     return true;
 }
+*/
 
     public void getSQLite(){
         List<IpAddress> listIPAddress = db.getAllIpAddress();
@@ -414,6 +455,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Log.e("DATABASE", ip_name);
         }
     }
+
+    public void setDefaultClick(List<IpAddress> ipAddresses , int index){
+        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        final SharedPreferences.Editor editor = preferences.edit();
+        String stringAddress = ipAddresses.get(index).address;
+        PortBox.setText(stringAddress);
+        String splitter[] = stringAddress.split(":");
+        IpAddr = splitter[0];
+        Port = splitter[1];
+        editor.putString("default_ip_address",ipAddresses.get(index).address);
+        editor.putInt("default_ip_address_index",index);
+        editor.apply();
+    }
+
+    public void setDefault(String address){
+        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        final SharedPreferences.Editor editor = preferences.edit();
+        PortBox.setText(address);
+        String splitter[] = address.split(":");
+        IpAddr = splitter[0];
+        Port = splitter[1];
+        editor.putString("default_ip_address",address);
+        // editor.putInt("default_ip_address_index",index);
+        editor.apply();
+    }
+
 
     public void createAlertDialogSQLite(){
 
@@ -521,32 +588,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
         CreateDialog.show();
     }
-
-    public void setDefaultClick(List<IpAddress> ipAddresses , int index){
-        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        final SharedPreferences.Editor editor = preferences.edit();
-        String stringAddress = ipAddresses.get(index).address;
-        PortBox.setText(stringAddress);
-        String splitter[] = stringAddress.split(":");
-        IpAddr = splitter[0];
-        Port = splitter[1];
-        editor.putString("default_ip_address",ipAddresses.get(index).address);
-        editor.putInt("default_ip_address_index",index);
-        editor.apply();
-    }
-
-    public void setDefault(String address){
-        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        final SharedPreferences.Editor editor = preferences.edit();
-        PortBox.setText(address);
-        String splitter[] = address.split(":");
-        IpAddr = splitter[0];
-        Port = splitter[1];
-        editor.putString("default_ip_address",address);
-       // editor.putInt("default_ip_address_index",index);
-        editor.apply();
-    }
-
 
     public void createAddDialogSQLite(final int nextSize){
         Log.e("WINDOWS","AddDialogOpen: "+ AddDialogOpen + " Edited: "+ Edited);
@@ -868,10 +909,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     }
-
-
-
-
 
 
     private ServiceConnection mConnection = new ServiceConnection() {

@@ -6,7 +6,14 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.os.Vibrator;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,11 +30,69 @@ public class DmoteNotification {
     private  Intent DeclineIntent;
     private  PendingIntent AcceptPendingIntent;
     private PendingIntent DeclinePendingIntent;
+    private SharedPreferences settings;
     String LastValue;
 
 
     DmoteNotification(Service service){
+
+
         mService= service;
+
+     //   settings = service.getDefaultSharedPreferencesName(service);
+
+    }
+
+
+
+    public void Vib(){
+        settings = PreferenceManager.getDefaultSharedPreferences(mService);
+        if (settings.getBoolean("Vibrate",false)){
+        Vibrator v = (Vibrator) mService.getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
+            if (v.hasVibrator()) {
+                v.vibrate(400);
+            }
+            Vibrator k = (Vibrator) mService.getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
+        }
+    }
+    public void playAlert(){
+        settings = PreferenceManager.getDefaultSharedPreferences(mService);
+        if (settings.getBoolean("Sound Alert",false)) {
+            try {
+                Uri notification =  Uri.parse("android.resource://com.example.phnx.dmote/raw/suctwotone");
+                //Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                Ringtone r = RingtoneManager.getRingtone(mService.getApplicationContext(), notification);
+                r.play();
+            } catch (Exception e) {
+                Log.e("sound", "ConnectTask: BURH");
+            }
+        }
+    }
+    public void playSuccess(){
+        settings = PreferenceManager.getDefaultSharedPreferences(mService);
+        if (settings.getBoolean("Sound Alert",false)) {
+            try {
+                Uri notification =  Uri.parse("android.resource://com.example.phnx.dmote/raw/success");
+                Ringtone r = RingtoneManager.getRingtone(mService.getApplicationContext(), notification);
+                r.play();
+            } catch (Exception e) {
+                Log.e("sound", "ConnectTask: BURH");
+            }
+        }
+    }
+
+    public void playError(){
+        settings = PreferenceManager.getDefaultSharedPreferences(mService);
+        if (settings.getBoolean("Sound Alert",false)) {
+            try {
+                Uri notification =  Uri.parse("android.resource://com.example.phnx.dmote/raw/computererror");
+                Ringtone r = RingtoneManager.getRingtone(mService.getApplicationContext(), notification);
+                r.play();
+
+            } catch (Exception e) {
+                Log.e("sound", "ConnectTask: BURH");
+            }
+        }
     }
 
     private int getPhaseInt(String state){
@@ -66,7 +131,7 @@ public class DmoteNotification {
         }
 
         switch (state_number){
-            case 0:case 1:case 2:case 4:case 5:case 6:case 7:case 8:case 9:case 10:case 11:
+            case 0:case 1:case 2:case 4:case 5:case 6:case 7:case 8:case 9:case 11:
         //        Log.e("Create Notification", "CASE 1-9 !3 : ACCEPT OR DECLINE");
               //  NotificationCompat.Builder builder = new NotificationCompat.Builder(mService);
                 Notification notification = new android.support.v4.app.NotificationCompat.Builder(mService)
@@ -77,6 +142,18 @@ public class DmoteNotification {
                         .setPriority(Notification.PRIORITY_MAX).build();
                 mService.startForeground(Constants.NOTIFICATION_ID.FOREGROUND_SERVICE,
                         notification);
+                break;
+            case 10:
+            Notification notificationError = new android.support.v4.app.NotificationCompat.Builder(mService)
+                    .setSmallIcon(R.drawable.greysmalliconfilled24dp)
+                    .setContentTitle("DotaMote- Remote Matchmaking")
+                    .setContentText(initial_message)
+                    .setOngoing(true)
+                    .setPriority(Notification.PRIORITY_MAX).build();
+            mService.startForeground(Constants.NOTIFICATION_ID.FOREGROUND_SERVICE,
+                    notificationError);
+            break;
+
 
 
             case 3:
@@ -93,6 +170,11 @@ public class DmoteNotification {
 
                 mService.startForeground(Constants.NOTIFICATION_ID.FOREGROUND_SERVICE,
                         NotifcationWithButtons);
+                Vib();
+                playAlert();
+
+
+                break;
 
 
 
@@ -123,6 +205,7 @@ public class DmoteNotification {
            // case 0:case 1:case 4:case 5:case 6:case 10:
          //   {
     //        Log.e(" Notification Glacier", "    normal");
+
                 NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(mService)
                         .setContentText(state)
                         .setSmallIcon(R.drawable.greysmalliconfilled24dp)
@@ -136,7 +219,20 @@ public class DmoteNotification {
 
                 mNotificationManager.notify(Constants.NOTIFICATION_ID.FOREGROUND_SERVICE, mBuilder.build());
             LastValue = state;
+            if(state_number == 10 || state_number == 9){
+                playError();
+                Vib();
             }
+            if(state_number == 3 ){
+                playAlert();
+                Vib();
+            }
+            if(state_number == 7){
+                playSuccess();
+                Vib();
+            }
+
+        }
 
                 else if(state_number==11) {
      //       Log.e(" Notification Glacier", "    " + Integer.toString(state_number) + "=11   " + " State: " + state + "LAstVal: "+LastValue);

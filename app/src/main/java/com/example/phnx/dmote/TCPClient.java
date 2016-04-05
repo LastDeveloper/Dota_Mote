@@ -79,7 +79,7 @@ public class TCPClient {
             //create a socket to make the connection with the server
             Socket socket = new Socket();
 
-            socket.connect(new InetSocketAddress(serverAddr,foo),1000);
+            socket.connect(new InetSocketAddress(serverAddr,foo),2000);
 
          //   Socket socket = new Socket(serverAddr, foo);
             Log.e("TCP Client", "C: S...");

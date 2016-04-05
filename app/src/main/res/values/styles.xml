@@ -87,6 +87,10 @@
     <style name="DialogTheme" parent="Base.Theme.AppCompat.Dialog" >
         <item name="android:windowTitleStyle">@style/DialogStyle</item>
         <item name="android:textColor">#FFFFFF</item>
+        <item name="android:listChoiceIndicatorSingle">@android:color/white</item>
+        <item name="android:listChoiceBackgroundIndicator">@android:color/white</item>
+        <item name="android:colorActivatedHighlight">@android:color/white</item>
+
         <item name="android:colorPrimary">@android:color/white</item>
         <item name="android:textColorPrimary">@android:color/white</item>
         <item name="android:colorAccent">@android:color/white</item>

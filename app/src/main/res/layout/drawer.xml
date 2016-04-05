@@ -11,7 +11,112 @@
         layout="@layout/activity_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+    <!--
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/nav_recyclerview"
+        android:scrollbars="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:visibility="gone">
 
+
+    </android.support.v7.widget.RecyclerView>
+    -->
+    <RelativeLayout
+            android:layout_gravity="start"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/MainboxColor"
+        android:visibility="visible">
+
+
+            <TextView
+                android:layout_marginTop="50dp"
+                android:id="@+id/nav_ip_text"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:text="@string/Port_title"
+                android:textSize="30dp"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:textColor="@drawable/nav_text_selector"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:background="@drawable/nav_background_selector" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_below="@+id/nav_ip_text"
+            android:id="@+id/sound_layout"
+            android:background="@drawable/nav_background_selector"
+            android:layout_marginTop="2dp">
+
+            <TextView
+                android:id="@+id/nav_sound"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:textSize="30sp"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:textColor="@drawable/nav_text_selector"
+                android:paddingLeft="16dp" />
+
+            <android.support.v7.widget.SwitchCompat
+                android:theme="@style/DialogTheme"
+                android:id="@+id/sound_switch"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:checked="true"
+                android:layout_alignParentBottom="false"
+                android:textColor="@drawable/nav_text_selector"
+                android:textSize="30dp"
+                android:paddingRight="16dp"
+                android:text="@string/NavSound"
+                android:background="@drawable/nav_background_selector"
+                android:paddingLeft="16dp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_below="@+id/sound_layout"
+            android:id="@+id/vibrate_layout"
+            android:background="@drawable/nav_background_selector"
+            android:layout_marginTop="2dp">
+
+            <TextView
+                android:id="@+id/nav_vibrate"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:textSize="30sp"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:textColor="@drawable/nav_text_selector"
+                android:paddingLeft="16dp" />
+
+            <android.support.v7.widget.SwitchCompat
+                android:theme="@style/DialogTheme"
+                android:id="@+id/vibrate_swtich"
+                android:layout_width="match_parent"
+                android:checked="true"
+                android:layout_height="100dp"
+                android:layout_alignParentBottom="false"
+                android:textSize="32dp"
+                android:paddingRight="16dp"
+                android:paddingLeft="16dp"
+                android:background="@drawable/nav_background_selector"
+                android:text="@string/NavVibrate"
+                android:textColor="@drawable/nav_text_selector" />
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+
+<!--
 <android.support.design.widget.NavigationView
     android:id="@+id/nav_view"
     android:layout_width="match_parent"
@@ -24,6 +129,6 @@
     >
 
 </android.support.design.widget.NavigationView>
-
+    -->
 
 </android.support.v4.widget.DrawerLayout>
