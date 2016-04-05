@@ -1,7 +1,7 @@
 # DotaMote
 
 A mobile application that communicates with a desktop client to allow the user to accept or decline matches.
-SQLite database to hold different IP Address information. Foreground Service with Notifications to keep 
+SQLite database to hold different IP address information. Foreground Service with Notifications to keep 
 connection. User Interface integration with SQLite, and which reacts to desktop client.
 
 ## States 
@@ -26,11 +26,20 @@ Dotamote receives the different states of matchingmaking process from the Deskto
   * Disconnect
 
 ## User Interface
+
+
+![Example Image](/website/static/create.gif?raw=true)
+
+
 Dotamote connects to the desktop client by connecting to the desktop's local IP Address. The saved IP information
 is saved inside an SQLite database, accessible by a series of AlertDialogs. The AlertDialogs are accessed in the Navigation Drawer
-
-![Example Image](/website/static/create.gif?raw=true)
-
 The saved IP Addresses are displayed in a SingleChoiceList which is called from the SQLite Database on creation.  The selected choice is the IP Address that will be used to connect to the Desktop Client. Options to Cancel, Edit, and Add are available. Cancel will reset the default IP Address to the previous choice.
 
-![Example Image](/website/static/create.gif?raw=true)
+![Example Image](/website/static/add3.gif?raw=true)
+
+The Add Dialog accepts only properly formated IP addresses, and has emptyness checks for the Name and Port Number. This information is 
+saved in the SQLite database and sets the newly added IP address to default.
+
+The Edit allows for changed to be made to the slected IP address records. Also in the Option for Deleted is located here. 
+
+![Example Image](/website/static/edit.gif?raw=true) ![Example Image](/website/static/delete.gif?raw=true)
