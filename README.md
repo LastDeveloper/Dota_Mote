@@ -2,7 +2,7 @@
 
 A mobile application that communicates with a desktop client to allow the user to accept or decline matches.
 SQLite database to hold different IP address information. Foreground Service with Notifications to keep 
-connection. User Interface integration with SQLite, and which reacts to desktop client.
+connection. User Interface integration with SQLite, and which reacts to desktop client. 
 
 ## States 
 
@@ -33,24 +33,47 @@ The application also checks for any restarts in the search or for matchmaking er
 
 ### Add Dialog
 Dotamote connects to the desktop client by connecting to the desktop's local IP Address. The saved IP information
-is saved inside an SQLite database, accessible by a series of AlertDialogs. The AlertDialogs are accessed in the Navigation Drawer
-The saved IP Addresses are displayed in a SingleChoiceList which is called from the SQLite Database on creation.  The selected choice is the IP Address that will be used to connect to the Desktop Client. Options to Cancel, Edit, and Add are available. Cancel will reset the default IP Address to the previous choice.
+is saved inside an SQLite database, accessible by a series of AlertDialogs. 
+
+The saved IP Addresses are called from the SQLite Database on creation of the AlertDialog.  The selected choice is the IP Address that will be used to connect to the Desktop Client. Options to Cancel, Edit, and Add are available. Cancel will reset the default IP Address to the previous choice.
 
 ![Example Image](/website/static/add3.gif?raw=true)
 
-The Add Dialog accepts only properly formated IP addresses, and has emptyness checks for the Name and Port Number. This information is 
-saved in the SQLite database and sets the newly added IP address to default.
+The Add and other Dialogs only accept properly formatted IP addresses, and they have validity checks for the Name and Port Number. This information is saved in the SQLite database and sets the newly added IP address to default.
 
 
 ### Edit Options with Delete
 ![Example Image](/website/static/edit.gif?raw=true)  _________________________   ![Example Image](/website/static/delete.gif?raw=true)
 
-The Edit allows for changed to be made to the slected IP address records. Also in the Option for Deleted is located here. 
+The Edit allows for changed to be made to the selected IP address records from the database. Also in the option for Delete is located here. 
 
 
 ## Notifications
 
 ![Example Image](/website/static/notificatition.gif?raw=true)
 
-The communication between the application and the Desktop client is handled by a Service. The Service is initialized as a Foreground Service allowing it to persist in the case of low system memory or if the user leaves the application while still the search is still running. The service uses an Asynctask to send and receive the data from the Desktop Client. Once the service is running, the application can rebind itself to the service and continue receiving information as if nothing happened. The application, Service, and Asynctask communicate by an series of Interfaces, which are connected when the Service is created , and when the appication binds itself to the service.
+The communication between the application and the Desktop client is handled by a Service. The Service is initialized as a Foreground Service, allowing it to persist in the case of low system memory or if the user leaves the application. The Service uses an Asynctask (Background Thread) to send and receive the data from the Desktop Client. Once the service is running, the application can rebind itself to the service and continue receiving information. The application, Service, and Asynctask communicate by an series of Interfaces, which are connected when the Service is created, and when the application  binds itself to the service.
 
+### Important Information
+
+This project allowed me to gain knowledge and experience of higher level Object Oriented Programming. I plan to use these skills in my other projects and to allow me to adapt to other programming languages and development concepts. 
+
+PS. To show the my experience of the Android Lifecycle, All of the Dialogs and Game information are full adaptable on orientation 
+changes and other user inputs. 
+
+
+
+##3rd Party Libraries Used
+
+#AutoFitTextView
+
+  https://github.com/grantland/android-autofittextview
+
+  A TextView that automatically resizes text to fit perfectly within its bounds.
+  
+#Android Form EditText
+
+  https://github.com/vekexasia/android-edittext-validator
+
+  Android form edit text is an extension of EditText that brings data validation facilities to the edittext. (Used in Dialogs for
+  validation.
