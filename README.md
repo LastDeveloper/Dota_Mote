@@ -50,7 +50,7 @@ The Edit allows for changed to be made to the selected IP address records from t
 
 ## Notifications
 
-![Example Image](/website/static/notificatition.gif?raw=true)
+![Example Image](/website/static/notfication.gif?raw=true)
 
 The communication between the application and the Desktop client is handled by a Service. The Service is initialized as a Foreground Service, allowing it to persist in the case of low system memory or if the user leaves the application. The Service uses an Asynctask (Background Thread) to send and receive the data from the Desktop Client. Once the service is running, the application can rebind itself to the service and continue receiving information. The application, Service, and Asynctask communicate by an series of Interfaces, which are connected when the Service is created, and when the application  binds itself to the service.
 
@@ -63,7 +63,9 @@ changes and other user inputs.
 
 
 
+
 ##3rd Party Libraries Used
+
 
 #AutoFitTextView
 
@@ -76,4 +78,4 @@ changes and other user inputs.
   https://github.com/vekexasia/android-edittext-validator
 
   Android form edit text is an extension of EditText that brings data validation facilities to the edittext. (Used in Dialogs for
-  validation.
+  validation. )
