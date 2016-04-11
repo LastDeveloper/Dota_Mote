@@ -147,6 +147,13 @@ public class connectServiceAsync extends AsyncTask<String, String, TCPClient>   
         mTcpClient.stopClient();
         }
     }
+    public boolean getRunning(){
+        Log.e("TCP Client", "ConnectTask: stopCl");
+        if (mTcpClient!=null){
+          return   mTcpClient.getmRun();
+        }
+        return false;
+    }
     public void onAttach( Activity activity) {
         this.activity = activity;
         Log.e("TCP Client", "ConnectTask: Attached");

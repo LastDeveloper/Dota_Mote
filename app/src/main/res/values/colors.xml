@@ -14,4 +14,5 @@
     <color name="top_box_color">#1D1E20</color>
     <color name="AlertColor">#000000</color>
     <color name="white">#FFFFFF</color>
+    <color name="notificationBackColor">#303133</color>
 </resources>

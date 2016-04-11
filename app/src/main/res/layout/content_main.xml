@@ -11,6 +11,11 @@
     android:id="@+id/RootView"
     android:background="#000000">
 
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/animationView" />
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"

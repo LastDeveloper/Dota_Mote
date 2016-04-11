@@ -1,14 +1,10 @@
 package com.example.phnx.dmote;
 
-import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 /**
@@ -17,18 +13,13 @@ import android.util.Log;
 public class connectService extends Service  {
     /** indicates how to behave if the service is killed */
     int mStartMode;
-    private int connection ;
-    AsyncInterface mCallBack;
-    TcpInterface mTcp;
     String Dmessage;
     private boolean unBound, running = false,notiOn = false;
     private final IBinder mBinder = new LocalBinder();
     /** interface for clients that bind */
-    //IBinder mBinder;
     connectServiceAsync mAsyncTask;
-    Service CS=this;
 
-    DmoteNotification Please = new DmoteNotification(this);
+    customNotifcation Please = new customNotifcation(this);
     MainListener mMainListener;
 
     public class LocalBinder extends Binder {
@@ -42,18 +33,6 @@ public class connectService extends Service  {
 
     }
 
-    public void attachInterface(MainListener listener){
-        mMainListener= listener;
-
-    }
-    public String getMessage() {
-        if(Dmessage!=null){
-
-            return Dmessage;
-        }
-        return "Wait!";
-    }
-
     /** indicates whether onRebind should be used */
     boolean mAllowRebind;
 
@@ -61,8 +40,6 @@ public class connectService extends Service  {
         @Override
         public void onCreate() {
             Log.e ("Service","OnCreate");
-
-
 
         }
 
@@ -81,6 +58,19 @@ public class connectService extends Service  {
                     @Override
                     public void returnError(String error) {
                         Log.e("Message", "Error:" + error);
+                        if( error.equals("End")  ){
+                            if(Dmessage!=null) {
+                                Log.e("Message", "      |"+Dmessage);
+                                Log.e("Message", "      |"+Dmessage.substring(1)+"    "+Dmessage.substring(2));
+                                if(!Dmessage.equals("Disconnect") && !Dmessage.substring(1).equals("Disconnect") ) {
+                                    mMainListener.getServiceMessage("_Disconnect");
+                                    mAsyncTask.stopCl();
+                                    stopForeground(true);
+                                    stopSelf();
+                                    running = false;
+                                }
+                            }
+                        }
                         if (error.equals("error")) {
                             mAsyncTask.stopCl();
                             stopForeground(true);
@@ -91,9 +81,6 @@ public class connectService extends Service  {
 
                     @Override
                     public void returnMessage(String message) {
-
-
-
                         if(!running) {
                             if(mMainListener!=null){
                                 mMainListener.getServiceMessage(message);
@@ -101,10 +88,10 @@ public class connectService extends Service  {
                             Log.e("Message", "Message:" + message);
                             Please.returnNotfication(message);
                             notiOn= true;
-                           // createNotification();
                             running = true;
+
                         }
-                        else if(message.equals("Disconnect")||message.substring(1).equals("Disconnect")){
+                        else if(message.equals("Disconnect")||message.substring(1).equals("Disconnect")&&running){
                             Please.updateNotification(message);
                             if(mMainListener!=null){
                                 mMainListener.getServiceMessage(message);
@@ -115,16 +102,21 @@ public class connectService extends Service  {
                             stopForeground(true);
                             stopSelf();
                             running=false;
+
                         }
                         else if (notiOn &&!message.equals(Dmessage)){
+                            if(message.equals("Checking...") || message.substring(1).equals("Checking...")){
+                                mAsyncTask.sendmess("Reset");
+
+                            }
                             if(mMainListener!=null){
                                 mMainListener.getServiceMessage(message);
+
                             }
                             Log.e("Message", "Message:" + message);
                             Please.updateNotification(message);
-                            // updateNotification(message);
-                        }
 
+                        }
                         Dmessage = message;
 
                     }
@@ -135,17 +127,38 @@ public class connectService extends Service  {
                     }
                 });
                 mAsyncTask.execute(ip_address, port);
-                //mAsyncTask.execute(ip_address,port);
-            }
-            else if(intent.getAction().equals(Constants.ACTION.ACCEPT_ACTION)){
-                Log.e("Service","Send Mess Attempt: Accept");
-                mAsyncTask.sendmess("Accept");
-            }
-            else if(intent.getAction().equals(Constants.ACTION.DECLINE_ACTION)){
-                Log.e("Service","Send Mess Attempt: Decline");
-                mAsyncTask.sendmess("Decline");
+
             }
 
+            else if(intent.getAction().equals(Constants.ACTION.ACCEPT_ACTION)){
+                Log.e("Service","Send Message: Accept");
+                mAsyncTask.sendmess("Accept");
+
+            }
+            else if(intent.getAction().equals(Constants.ACTION.DECLINE_ACTION)){
+                Log.e("Service","Send Message: Decline");
+                mAsyncTask.sendmess("Decline");
+
+            }
+            else if(intent.getAction().equals(Constants.ACTION.DISCONNECT_ACTION)){
+                Log.e("Service", " Send Message: Disconnect");
+
+                if (mAsyncTask!=null) {  Log.e("Service", "     mAsynctask.getRunning: "+mAsyncTask.getRunning());
+                    if (mAsyncTask.getRunning()) {
+                        mAsyncTask.stopCl();
+                        stopSelf();
+                        stopForeground(true);
+                    }
+                    else
+                    {
+                        Please.cancel();
+                    }
+                }
+                else {
+                    Please.cancel();
+                }
+
+            }
 
             return mStartMode;
     }
@@ -165,8 +178,6 @@ public class connectService extends Service  {
             mMainListener.getServiceMessage(Dmessage);
         }
         Log.e ("Service","onRebind");
-      //  mAsyncTask.BindInterface();
-       // mAsyncTask.receiveCurrentStatus();
 
     }
     @Override
@@ -181,49 +192,6 @@ public class connectService extends Service  {
 
     }
 
-    public void createNotification(){
-        notiOn= true;
-
-        Notification notification = new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.drawable.greysmalliconfilled24dp)
-                        .setContentTitle("DotaMote- Remote Matchmaking")
-                        .setContentText(Dmessage)
-                        .setOngoing(true)
-                        .setPriority(Notification.PRIORITY_MAX).build();
-       // if(Dmessage)
-          //  mBuilder.addAction(R.drawable.greya_24dp,"Accept",resultPendingIntent).addAction(R.drawable.greyd_24dp,"Decline",resultPendingIntent2);
-       // notification.build();
-        startForeground(Constants.NOTIFICATION_ID.FOREGROUND_SERVICE,
-                notification);
-
-
-       // NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-       // mNotificationManager.notify(Tag,o, mBuilder.build());
-    }
-    public void updateNotification(String message){
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
-                .setContentText(message)
-                .setSmallIcon(R.drawable.greysmalliconfilled24dp)
-                .setContentTitle("DotaMote- Remote Matchmaking")
-                .setOngoing(true)
-                .setPriority(Notification.PRIORITY_MAX);
-
-        NotificationManager mNotificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        mNotificationManager.notify(Constants.NOTIFICATION_ID.FOREGROUND_SERVICE, mBuilder.build());
-    }
-    public void deleteNotification(String message){
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
-                .setContentText(message)
-                .setSmallIcon(R.drawable.greysmalliconfilled24dp)
-                .setContentTitle("DotaMote- Remote Matchmaking")
-                .setOngoing(false)
-                .setPriority(Notification.PRIORITY_MAX);
-
-        NotificationManager mNotificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        mNotificationManager.notify(Constants.NOTIFICATION_ID.FOREGROUND_SERVICE, mBuilder.build());
-    }
 
     public interface MainListener{
 

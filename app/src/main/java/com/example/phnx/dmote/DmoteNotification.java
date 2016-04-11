@@ -136,7 +136,7 @@ public class DmoteNotification {
         //        Log.e("Create Notification", "CASE 1-9 !3 : ACCEPT OR DECLINE");
               //  NotificationCompat.Builder builder = new NotificationCompat.Builder(mService);
                 Notification notification = new android.support.v4.app.NotificationCompat.Builder(mService)
-                        .setSmallIcon(R.drawable.greysmalliconfilled24dp)
+                      //  .setSmallIcon(R.drawable.greysmalliconfilled24dp)
                         .setContentTitle("DotaMote- Remote Matchmaking")
                         .setContentText(initial_message)
                         .setOngoing(true)
@@ -146,7 +146,7 @@ public class DmoteNotification {
                 break;
             case 10:
             Notification notificationError = new android.support.v4.app.NotificationCompat.Builder(mService)
-                    .setSmallIcon(R.drawable.greysmalliconfilled24dp)
+                   // .setSmallIcon(R.drawable.greysmalliconfilled24dp)
                     .setContentTitle("DotaMote- Remote Matchmaking")
                     .setContentText(initial_message)
                     .setOngoing(true)
@@ -161,13 +161,13 @@ public class DmoteNotification {
         //        Log.e("Create Notification", "CASE 3: ACCEPT OR DECLINE");
 
                 Notification NotifcationWithButtons = new android.support.v4.app.NotificationCompat.Builder(mService)
-                        .setSmallIcon(R.drawable.greysmalliconfilled24dp)
+                      //  .setSmallIcon(R.drawable.greysmalliconfilled24dp)
                         .setContentTitle("DotaMote- Remote Matchmaking")
                         .setContentText(initial_message)
                         .setOngoing(true)
-                        .setPriority(Notification.PRIORITY_MAX)
-                        .addAction(R.drawable.greya_24dp,"Accept",AcceptPendingIntent)
-                        .addAction(R.drawable.greyd_24dp,"Decline",DeclinePendingIntent).build();
+                        .setPriority(Notification.PRIORITY_MAX).build();
+                      //  .addAction(R.drawable.greya_24dp,"Accept",AcceptPendingIntent)
+                      //  .addAction(R.drawable.greyd_24dp,"Decline",DeclinePendingIntent).build();
 
                 mService.startForeground(Constants.NOTIFICATION_ID.FOREGROUND_SERVICE,
                         NotifcationWithButtons);
@@ -183,7 +183,7 @@ public class DmoteNotification {
         }
 
             Notification notification = new android.support.v4.app.NotificationCompat.Builder(mService)
-                    .setSmallIcon(R.drawable.greysmalliconfilled24dp)
+                //    .setSmallIcon(R.drawable.greysmalliconfilled24dp)
                     .setContentTitle("DotaMote- Remote Matchmaking")
                     .setContentText(initial_message)
                     .setOngoing(true)
@@ -209,7 +209,7 @@ public class DmoteNotification {
 
                 NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(mService)
                         .setContentText(state)
-                        .setSmallIcon(R.drawable.greysmalliconfilled24dp)
+                  //      .setSmallIcon(R.drawable.greysmalliconfilled24dp)
                         .setContentTitle("DotaMote- Remote Matchmaking")
                         .setOngoing(true)
                         .setPriority(Notification.PRIORITY_MAX);
@@ -241,7 +241,7 @@ public class DmoteNotification {
     //                    Log.e(" Notification Glacier", "    7,8,9");
                         NotificationCompat.Builder mBuilder3 = new NotificationCompat.Builder(mService)
                                 .setContentText(LastValue)
-                                .setSmallIcon(R.drawable.greysmalliconfilled24dp)
+                    //            .setSmallIcon(R.drawable.greysmalliconfilled24dp)
                                 .setContentTitle("DotaMote- Remote Matchmaking")
                                 .setOngoing(false)
                                 .setPriority(Notification.PRIORITY_MAX);
@@ -256,7 +256,7 @@ public class DmoteNotification {
 
                         NotificationCompat.Builder mBuilder3 = new NotificationCompat.Builder(mService)
                                 .setContentText(state)
-                                .setSmallIcon(R.drawable.greysmalliconfilled24dp)
+                      //          .setSmallIcon(R.drawable.greysmalliconfilled24dp)
                                 .setContentTitle("DotaMote- Remote Matchmaking")
                                 .setOngoing(false)
                                 .setPriority(Notification.PRIORITY_MAX);
@@ -272,12 +272,11 @@ public class DmoteNotification {
 //            Log.e(" Notification Glacier", "         Contains");
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(mService)
                     .setContentText(state)
-                    .setSmallIcon(R.drawable.greysmalliconfilled24dp)
+
                     .setContentTitle("DotaMote- Remote Matchmaking")
                     .setOngoing(true)
-                    .setPriority(Notification.PRIORITY_MAX)
-                    .addAction(R.drawable.greya_24dp,"Accept",AcceptPendingIntent)
-                    .addAction(R.drawable.greyd_24dp,"Decline",DeclinePendingIntent);
+                    .setPriority(Notification.PRIORITY_MAX);
+
 
 
             NotificationManager mNotificationManager =

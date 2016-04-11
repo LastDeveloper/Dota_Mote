@@ -12,37 +12,25 @@
         android:hardwareAccelerated="false"
         android:largeHeap="true"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/dotamote_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings"
-            android:theme="@style/PreferencesTheme">
-
-
-        </activity><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+       <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
-        <receiver android:name=".InternetLostReceiver">   // note the removal of the / in />
-            <intent-filter>
-                <action android:name="com.example.phnx.dmote.test_intent" />
-            </intent-filter>
 
-            <intent-filter>
-            <action android:name="com.example.phnx.dmote.test2" />
-            </intent-filter>
-        </receiver>
         <service android:name=".connectService" />
     </application>
 

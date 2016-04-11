@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="128dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/notificationBackColor">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight=".6">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight=".6">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView4" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/notif_icon"
+                android:layout_alignParentStart="false"
+                android:scaleType="fitCenter"
+                android:src="@drawable/dotamote_vector5"
+                android:adjustViewBounds="true"
+                android:layout_marginLeft="6dp"
+                android:layout_marginBottom="4dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Returning to Search..."
+                    android:id="@+id/notif_content"
+                    android:textColor="@color/white"
+                    android:layout_centerInParent="true"
+                    android:textSize="20dp" />
+
+                <ImageButton
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/NotificationExitButton"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/abc_ic_clear_material"
+                    android:layout_alignParentEnd="true"
+                    android:tint="@color/white"
+                    android:scaleType="fitXY"
+                    android:adjustViewBounds="true" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="New Button"
+                    android:id="@+id/NotificationMainButton"
+                    android:background="@android:color/transparent" />
+            </RelativeLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".4">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight=".5">
+
+                <Button
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Accept"
+                    android:id="@+id/NotificationAcceptButton"
+                    android:layout_weight="1"
+                    android:textColor="@color/white"
+                    android:background="@drawable/acceptbackbevel2" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight=".5">
+
+
+
+                <Button
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Decline"
+                    android:id="@+id/NotificationDeclineButton"
+                    android:layout_weight="1"
+                    android:textColor="@color/white"
+                    android:background="@drawable/declinebackbevel2" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ImageButton
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/imageButton2"
+        android:background="@android:color/transparent"
+        android:src="@drawable/abc_ic_clear_material"
+        android:layout_alignParentEnd="true"
+        android:tint="@color/white"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true" />
+
+</RelativeLayout>

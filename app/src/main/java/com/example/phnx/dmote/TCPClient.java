@@ -62,6 +62,10 @@ public class TCPClient {
         mRun = false;
         Log.e("TCP Client", "TCPClient: stopClient()");
     }
+    public boolean getmRun(){
+        return mRun;
+
+    }
 
     public void run(String message, String message2) {
 
@@ -128,6 +132,7 @@ public class TCPClient {
             } finally {
                 //the socket must be closed. It is not possible to reconnect to this socket
                 // after it is closed, which means a new socket instance has to be created.
+                mMessageListener.onConnect2("End");
                 Log.e("Service", "TCPClient END");
                 socket.close();
             }
