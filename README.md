@@ -2,9 +2,8 @@
 
 A mobile application that communicates with a desktop client to allow the user to accept or decline matches of the popular MOBA, DOTA 2. 
 
-SQLite database to hold different IP address information. Foreground Service with Notifications to keep 
-connection. User Interface integration with SQLite, and which reacts to desktop client. Also a sound alert and vibration are 
-used to alert the user. The notification contains a custom layout and in addition a background animation shown in the main application.
+DotaMote contains many complex components. A SQLite database to hold different IP address information. Foreground Service with Notifications to keep connection. An AsyncTask to connect to the desktop client. User Interface integration with SQLite, and which reacts to desktop client. Also sound and vibration alerts are 
+used to inform the user. The notification contains a custom layout and in addition a background animation shown in the main application.
 
 ## States 
 
