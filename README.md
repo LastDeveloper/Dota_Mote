@@ -51,7 +51,7 @@ The Edit allows for changed to be made to the selected IP address records from t
 
 ## Notifications
 
-![Example Image](/website/static/notfication2.gif?raw=true)
+![Example Image](/website/static/notification2.gif?raw=true)
 
 The communication between the application and the Desktop client is handled by a Service. The Service is initialized as a Foreground Service, allowing it to persist in the case of low system memory or if the user leaves the application. The Service uses an Asynctask (Background Thread) to send and receive the data from the Desktop Client. Once the service is running, the application can rebind itself to the service and continue receiving information. The application, Service, and Asynctask communicate by an series of Interfaces, which are connected when the Service is created, and when the application  binds itself to the service.
 
