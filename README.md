@@ -1,9 +1,10 @@
 # DotaMote
 
-A mobile application that communicates with a desktop client to allow the user to accept or decline matches. 
+A mobile application that communicates with a desktop client to allow the user to accept or decline matches of the popular MOBA, DOTA 2. 
+
 SQLite database to hold different IP address information. Foreground Service with Notifications to keep 
 connection. User Interface integration with SQLite, and which reacts to desktop client. Also a sound alert and vibration are 
-used to alert the user.
+used to alert the user. The notification contains a custom layout and in addition a background animation shown in the main application.
 
 ## States 
 
@@ -80,3 +81,10 @@ changes and other user inputs.
 
   Android form edit text is an extension of EditText that brings data validation facilities to the edittext. (Used in Dialogs for
   validation. )
+  
+###MultiStateAnimation
+
+https://github.com/KeepSafe/MultiStateAnimation
+
+Animation Handler. Used to have Animation States coincided with Status changes of the game.
+
