@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="76.8dp">
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:orientation="vertical"
@@ -15,11 +16,6 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight=".6">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageView4" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -45,36 +41,25 @@
                     android:layout_centerInParent="true"
                     android:textSize="20dp" />
 
-                <ImageButton
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:background="@android:color/transparent"
-                    android:src="@drawable/abc_ic_clear_material"
-                    android:layout_alignParentEnd="true"
-                    android:tint="@color/white"
-                    android:scaleType="fitXY"
-                    android:adjustViewBounds="true"
-                    android:visibility="invisible" />
-
             </RelativeLayout>
 
         </LinearLayout>
 
     </LinearLayout>
 
-    <ImageButton
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/NotificationMainButton"
         android:clickable="false"
-        android:background="@android:color/transparent" />
+        android:background="@color/notification_transparent" />
 
-    <ImageButton
+    <ImageView
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:id="@+id/NotificationExitButton"
-        android:background="@android:color/transparent"
-        android:src="@drawable/abc_ic_clear_material"
+        android:background="@color/notification_transparent"
+        android:src="@color/white"
         android:layout_alignParentEnd="true"
         android:tint="@color/white"
         android:scaleType="fitXY"

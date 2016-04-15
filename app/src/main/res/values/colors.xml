@@ -15,4 +15,12 @@
     <color name="AlertColor">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="notificationBackColor">#303133</color>
+    <color name="notification_transparent">#00000000</color>
+
+
+    <color name="d500">#B44027</color>
+    <color name="d400">#cd492c</color>
+    <color name="d600">#9b3722</color>
+    <color name="d700">#822e1c</color>
+    <color name="d800">#692517</color>
 </resources>

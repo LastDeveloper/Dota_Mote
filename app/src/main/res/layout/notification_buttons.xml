@@ -23,11 +23,6 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/imageView4" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:id="@+id/notif_icon"
                 android:layout_alignParentStart="false"
                 android:scaleType="fitCenter"
@@ -48,17 +43,6 @@
                     android:textColor="@color/white"
                     android:layout_centerInParent="true"
                     android:textSize="20dp" />
-
-                <ImageButton
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:id="@+id/NotificationExitButton"
-                    android:background="@android:color/transparent"
-                    android:src="@drawable/abc_ic_clear_material"
-                    android:layout_alignParentEnd="true"
-                    android:tint="@color/white"
-                    android:scaleType="fitXY"
-                    android:adjustViewBounds="true" />
 
             </RelativeLayout>
 
@@ -120,7 +104,7 @@
     <ImageButton
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:id="@+id/imageButton2"
+        android:id="@+id/NotificationExitButton"
         android:background="@android:color/transparent"
         android:src="@drawable/abc_ic_clear_material"
         android:layout_alignParentEnd="true"

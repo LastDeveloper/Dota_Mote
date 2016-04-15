@@ -106,6 +106,7 @@ public class customNotifcation   {
          * Icons still must be set if using RemoteViews.
          *
          * **/
+        Log.e("MAIN_ACTIVITY", "    return Case: " + initial_message);
         if(state_number!=-1) {
             switch (state_number) {
                 /** Common states, Look at StateArray, only updates the text in the Notification  **/
@@ -124,13 +125,16 @@ public class customNotifcation   {
                     mRemoteViews.setTextViewText(R.id.notif_content, initial_message);
                     mRemoteViews.setOnClickPendingIntent(R.id.NotificationExitButton, DisconnectPendingIntent);
                     mRemoteViews.setOnClickPendingIntent(R.id.NotificationMainButton, MainPendingIntent);
-                    Notification notification = new android.support.v4.app.NotificationCompat.Builder(mService)
-                            .setSmallIcon(R.drawable.dotamote_vector5)
+                    NotificationCompat.Builder notification = new NotificationCompat.Builder(mService)
+                           // .setSmallIcon(R.drawable.dotamote_vector5)
+                            .setSmallIcon(R.mipmap.dotamote_launcher)
                             .setContent(mRemoteViews)
+                            .setContentTitle("Dotamote")
                             .setOngoing(true)
-                            .setPriority(Notification.PRIORITY_MAX).build();
+
+                            .setPriority(Notification.PRIORITY_MAX);
                     mService.startForeground(Constants.NOTIFICATION_ID.FOREGROUND_SERVICE,
-                            notification);
+                            notification.build());
                     break;
                 /** Failed to Ready Up, Play Error Sound */
                 case 10:
@@ -139,13 +143,14 @@ public class customNotifcation   {
                     mRemoteViews.setTextViewText(R.id.notif_content, initial_message);
                     mRemoteViews.setOnClickPendingIntent(R.id.NotificationExitButton, DisconnectPendingIntent);
                     mRemoteViews.setOnClickPendingIntent(R.id.NotificationMainButton, MainPendingIntent);
-                    Notification notificationError = new android.support.v4.app.NotificationCompat.Builder(mService)
-                            .setSmallIcon(R.drawable.dotamote_vector5)
+                    NotificationCompat.Builder notificationError = new android.support.v4.app.NotificationCompat.Builder(mService)
+                           // .setSmallIcon(R.drawable.dotamote_vector5)
+                            .setSmallIcon(R.mipmap.dotamote_launcher)
                             .setContent(mRemoteViews)
                             .setOngoing(true)
-                            .setPriority(Notification.PRIORITY_MAX).build();
+                            .setPriority(Notification.PRIORITY_MAX);
                     mService.startForeground(Constants.NOTIFICATION_ID.FOREGROUND_SERVICE,
-                            notificationError);
+                            notificationError.build());
                     break;
 
 
@@ -160,14 +165,14 @@ public class customNotifcation   {
                     mRemoteViews.setOnClickPendingIntent(R.id.NotificationExitButton, DisconnectPendingIntent);
                     mRemoteViews.setOnClickPendingIntent(R.id.NotificationMainButton, MainPendingIntent);
 
-                    Notification NotifcationWithButtons = new android.support.v4.app.NotificationCompat.Builder(mService)
+                    NotificationCompat.Builder NotifcationWithButtons = new NotificationCompat.Builder(mService)
                             .setSmallIcon(R.drawable.dotamote_vector5)
                             .setContent(mRemoteViews)
                             .setOngoing(true)
                             .setPriority(Notification.PRIORITY_MAX)
-                            .build();
+                            ;
                     mService.startForeground(Constants.NOTIFICATION_ID.FOREGROUND_SERVICE,
-                            NotifcationWithButtons);
+                            NotifcationWithButtons.build());
                     Vib();
                     playAlert();
 
@@ -184,19 +189,20 @@ public class customNotifcation   {
             mRemoteViews.setOnClickPendingIntent(R.id.NotificationExitButton, DisconnectPendingIntent);
             mRemoteViews.setOnClickPendingIntent(R.id.NotificationMainButton, MainPendingIntent);
 
-            Notification notification = new android.support.v4.app.NotificationCompat.Builder(mService)
+            NotificationCompat.Builder notification = new NotificationCompat.Builder(mService)
                     .setSmallIcon(R.drawable.dotamote_vector5)
                     .setContent(mRemoteViews)
                     .setOngoing(true)
-                    .setPriority(Notification.PRIORITY_MAX).build();
+                    .setPriority(Notification.PRIORITY_MAX);
             mService.startForeground(Constants.NOTIFICATION_ID.FOREGROUND_SERVICE,
-                    notification);
+                    notification.build());
         }
     }
 
     /** Updating the Notification after is creation */
     public void updateNotification(String state){
         int state_number = -1;
+        Log.e("MAIN_ACTIVITY", "    Update Case: " + state);
 
         /** Get State Index from the given state, Sometimes the messages have unknown characters in the beginning, so substring is used */
         if(state.length()>2) {
@@ -211,7 +217,10 @@ public class customNotifcation   {
             mRemoteViews2.setOnClickPendingIntent(R.id.NotificationExitButton,DisconnectPendingIntent);
             mRemoteViews2.setOnClickPendingIntent(R.id.NotificationMainButton, MainPendingIntent);
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(mService)
-                    .setSmallIcon(R.drawable.dotamote_vector5)
+                  //  .setSmallIcon(R.drawable.dotamote_vector5)
+                    .setSmallIcon(R.mipmap.dotamote_launcher)
+                    .setContentTitle("Dmote?")
+                    .setContentText("kek")
                     .setContent(mRemoteViews2)
                     .setOngoing(true)
                     .setPriority(Notification.PRIORITY_MAX);

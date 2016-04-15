@@ -1184,7 +1184,7 @@ public class MainActivity extends AppCompatActivity implements MultiStateAnimati
     }
 
 
-    private MultiStateAnimation makeAnimationPortrait(View view){
+    private MultiStateAnimation makeAnimationPortrai3(View view){
         MultiStateAnimation.SectionBuilder startSection = new MultiStateAnimation.SectionBuilder("pending")
                 .setOneshot(true)
                 .setFrameDuration(30)
@@ -1331,7 +1331,180 @@ public class MainActivity extends AppCompatActivity implements MultiStateAnimati
 
     }
 
+    private MultiStateAnimation makeAnimationPortrait(View view){
+        MultiStateAnimation.SectionBuilder startSection = new MultiStateAnimation.SectionBuilder("pending")
+                .setOneshot(true)
+                .setFrameDuration(30)
+                .addFrame(R.drawable.portv200000)
+                .addFrame(R.drawable.portv200001)
+                .addFrame(R.drawable.portv200002)
+                .addFrame(R.drawable.portv200003)
+                .addFrame(R.drawable.portv200004)
+                .addFrame(R.drawable.portv200005)
+                .addFrame(R.drawable.portv200006)
+                .addFrame(R.drawable.portv200007)
+                .addFrame(R.drawable.portv200008)
+                .addFrame(R.drawable.portv200009)
+                .addFrame(R.drawable.portv200010)
+                .addFrame(R.drawable.portv200011)
+                .addFrame(R.drawable.portv200012)
+                .addFrame(R.drawable.portv200013)
+                .addFrame(R.drawable.portv200014)
+                .addFrame(R.drawable.portv200015);
+
+        MultiStateAnimation.SectionBuilder middleSection = new MultiStateAnimation.SectionBuilder("loading")
+                .setOneshot(false)
+                .setFrameDuration(30)
+                .addFrame(R.drawable.portv200016)
+                .addFrame(R.drawable.portv200017)
+                .addFrame(R.drawable.portv200018)
+                .addFrame(R.drawable.portv200019)
+                .addFrame(R.drawable.portv200020)
+                .addFrame(R.drawable.portv200021)
+                .addFrame(R.drawable.portv200022)
+                .addFrame(R.drawable.portv200023)
+                .addFrame(R.drawable.portv200024)
+                .addFrame(R.drawable.portv200025)
+                .addFrame(R.drawable.portv200026)
+                .addFrame(R.drawable.portv200027)
+                .addFrame(R.drawable.portv200028)
+                .addFrame(R.drawable.portv200027)
+                .addFrame(R.drawable.portv200026)
+                .addFrame(R.drawable.portv200025)
+                .addFrame(R.drawable.portv200024)
+                .addFrame(R.drawable.portv200023)
+                .addFrame(R.drawable.portv200022)
+                .addFrame(R.drawable.portv200021)
+                .addFrame(R.drawable.portv200020)
+                .addFrame(R.drawable.portv200019)
+                .addFrame(R.drawable.portv200018)
+                .addFrame(R.drawable.portv200017)
+
+
+
+                ;
+        MultiStateAnimation.SectionBuilder endSection = new MultiStateAnimation.SectionBuilder("finished")
+                .setOneshot(true)
+                .setFrameDuration(30)
+                .addFrame(R.drawable.portv200016)
+                .addFrame(R.drawable.portv200015)
+                .addFrame(R.drawable.portv200014)
+                .addFrame(R.drawable.portv200013)
+                .addFrame(R.drawable.portv200012)
+                .addFrame(R.drawable.portv200011)
+                .addFrame(R.drawable.portv200010)
+                .addFrame(R.drawable.portv200009)
+                .addFrame(R.drawable.portv200008)
+                .addFrame(R.drawable.portv200007)
+                .addFrame(R.drawable.portv200006)
+                .addFrame(R.drawable.portv200005)
+                .addFrame(R.drawable.portv200004)
+                .addFrame(R.drawable.portv200003)
+                .addFrame(R.drawable.portv200002)
+                .addFrame(R.drawable.portv200001)
+                .addFrame(R.drawable.portv200000)
+                ;
+
+
+        return new MultiStateAnimation.Builder(view)
+                .addSection(startSection)
+                .addSection(middleSection)
+                .addSection(endSection)
+                .build(this);
+
+
+
+
+    }
+
+
     private MultiStateAnimation makeAnimationLandscape(View view){
+        MultiStateAnimation.SectionBuilder startSection = new MultiStateAnimation.SectionBuilder("pending")
+                .setOneshot(true)
+                .setFrameDuration(30)
+                .addFrame(R.drawable.landscape00000)
+                .addFrame(R.drawable.landscape00001)
+                .addFrame(R.drawable.landscape00002)
+                .addFrame(R.drawable.landscape00003)
+                .addFrame(R.drawable.landscape00004)
+                .addFrame(R.drawable.landscape00005)
+                .addFrame(R.drawable.landscape00006)
+                .addFrame(R.drawable.landscape00007)
+                .addFrame(R.drawable.landscape00008)
+                .addFrame(R.drawable.landscape00009)
+                .addFrame(R.drawable.landscape00010)
+                .addFrame(R.drawable.landscape00011)
+                .addFrame(R.drawable.landscape00012)
+                .addFrame(R.drawable.landscape00013)
+                .addFrame(R.drawable.landscape00014)
+                .addFrame(R.drawable.landscape00015);
+
+        MultiStateAnimation.SectionBuilder middleSection = new MultiStateAnimation.SectionBuilder("loading")
+                .setOneshot(false)
+                .setFrameDuration(30)
+                .addFrame(R.drawable.landscape00016)
+                .addFrame(R.drawable.landscape00017)
+                .addFrame(R.drawable.landscape00018)
+                .addFrame(R.drawable.landscape00019)
+                .addFrame(R.drawable.landscape00020)
+                .addFrame(R.drawable.landscape00021)
+                .addFrame(R.drawable.landscape00022)
+                .addFrame(R.drawable.landscape00023)
+                .addFrame(R.drawable.landscape00024)
+                .addFrame(R.drawable.landscape00025)
+                .addFrame(R.drawable.landscape00026)
+                .addFrame(R.drawable.landscape00027)
+                .addFrame(R.drawable.landscape00028)
+                .addFrame(R.drawable.landscape00027)
+                .addFrame(R.drawable.landscape00026)
+                .addFrame(R.drawable.landscape00025)
+                .addFrame(R.drawable.landscape00024)
+                .addFrame(R.drawable.landscape00023)
+                .addFrame(R.drawable.landscape00022)
+                .addFrame(R.drawable.landscape00021)
+                .addFrame(R.drawable.landscape00020)
+                .addFrame(R.drawable.landscape00019)
+                .addFrame(R.drawable.landscape00018)
+                .addFrame(R.drawable.landscape00017)
+
+
+
+                ;
+        MultiStateAnimation.SectionBuilder endSection = new MultiStateAnimation.SectionBuilder("finished")
+                .setOneshot(true)
+                .setFrameDuration(30)
+                .addFrame(R.drawable.landscape00016)
+                .addFrame(R.drawable.landscape00015)
+                .addFrame(R.drawable.landscape00014)
+                .addFrame(R.drawable.landscape00013)
+                .addFrame(R.drawable.landscape00012)
+                .addFrame(R.drawable.landscape00011)
+                .addFrame(R.drawable.landscape00010)
+                .addFrame(R.drawable.landscape00009)
+                .addFrame(R.drawable.landscape00008)
+                .addFrame(R.drawable.landscape00007)
+                .addFrame(R.drawable.landscape00006)
+                .addFrame(R.drawable.landscape00005)
+                .addFrame(R.drawable.landscape00004)
+                .addFrame(R.drawable.landscape00003)
+                .addFrame(R.drawable.landscape00002)
+                .addFrame(R.drawable.landscape00001)
+                .addFrame(R.drawable.landscape00000)
+                ;
+
+
+        return new MultiStateAnimation.Builder(view)
+                .addSection(startSection)
+                .addSection(middleSection)
+                .addSection(endSection)
+                .build(this);
+
+
+
+
+    }
+
+    private MultiStateAnimation makeAnimationLandscapeold(View view){
         MultiStateAnimation.SectionBuilder startSection = new MultiStateAnimation.SectionBuilder("pending")
                 .setOneshot(true)
                 .setFrameDuration(30)
@@ -1477,7 +1650,6 @@ public class MainActivity extends AppCompatActivity implements MultiStateAnimati
 
 
     }
-
 
     @Override
     public void onAnimationFinished() {

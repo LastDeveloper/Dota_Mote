@@ -109,12 +109,12 @@ public class TCPClient {
                     out.println(bae);
                    // Log.e("TCP Client", "C:"+bae);
                     if (serverMessage != null && mMessageListener != null) {
-                        Log.e("TCP Client", "C:"+"hello?");
+                       // Log.e("TCP Client", "C:"+"hello?");
                         //call the method messageReceived from MyActivity class
                         mMessageListener.messageReceived(serverMessage);
                     }
                     serverMessage = null;
-                    Log.e("TCP Client", "C:"+"hello?2");
+                 //   Log.e("TCP Client", "C:"+"hello?2");
 
 
                 }

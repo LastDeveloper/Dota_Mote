@@ -23,6 +23,8 @@
     <string name="AlertIpAddressTestError">Invalid IP Address</string>
     <string name="AlertPortTestError">Invalid Port</string>
 
+
+
     <string name="NavSound">Sound Alert</string>
     <string name="NavVibrate">Vibrate </string>
 

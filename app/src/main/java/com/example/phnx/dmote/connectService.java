@@ -82,16 +82,17 @@ public class connectService extends Service  {
                     @Override
                     public void returnMessage(String message) {
                         if(!running) {
+                            Log.e("MAIN", "returnNotififcation:" + message);
                             if(mMainListener!=null){
                                 mMainListener.getServiceMessage(message);
                             }
                             Log.e("Message", "Message:" + message);
                             Please.returnNotfication(message);
-                            notiOn= true;
+                            notiOn = true;
                             running = true;
 
                         }
-                        else if(message.equals("Disconnect")||message.substring(1).equals("Disconnect")&&running){
+                        else if(message.equals("Disconnect")||message.substring(1).equals("Disconnect")&&running ){
                             Please.updateNotification(message);
                             if(mMainListener!=null){
                                 mMainListener.getServiceMessage(message);

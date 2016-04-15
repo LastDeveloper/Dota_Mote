@@ -138,4 +138,10 @@
         <item name="android:itemBackground">@color/PortBox</item>
     </style>
 
+
+    <style name="Material" parent="Theme.AppCompat.Light">
+        <item name="colorPrimary">#FF0000</item>
+        <item name="android:colorPrimary">@color/d500</item>
+
+        </style>
 </resources>
